@@ -28,7 +28,7 @@ function Navigation({ currentPage, onNavigate }) {
     Math.min(viewportHeight * 0.9, maxScroll || viewportHeight * 0.9),
   );
   const progress = isHome ? Math.min(scrollY / collapseDistance, 1) : 1;
-  const navOpacity = isHome ? 1 - progress * 0.25 : 0.7;
+  const navOpacity = isHome ? 0.1 - progress * 1 : 0.25;
   const logoScale = isHome ? Math.max(0.45, 1 - progress * 0.55) : 0.1;
   const minNavHeight = 72;
   const heroHeight = isHome
@@ -40,6 +40,7 @@ function Navigation({ currentPage, onNavigate }) {
   const paddingY = isHome ? 28 - progress * 14 : 16;
   const isCollapsed = !isHome || progress >= 1;
   const logoHeight = isCollapsed ? 150 : null;
+  const logoOffsetY = isCollapsed ? -40 : 0;
   const navItems = [
     { id: "work", label: "Work" },
     { id: "3d", label: "3D" },
@@ -63,8 +64,8 @@ function Navigation({ currentPage, onNavigate }) {
         onClick: () => onNavigate("home"),
         className: "cursor-pointer flex items-center justify-start pl-0 pr-6",
         whileHover: { scale: logoScale + 0.05 },
-        animate: { scale: logoScale },
-        transition: { type: "spring", stiffness: 160, damping: 18 },
+        animate: { scale: logoScale, y: logoOffsetY },
+        transition: { type: "tween", duration: 0.35, ease: "easeOut" },
         style: {
           transformOrigin: "left center",
           alignSelf: isCollapsed ? "flex-start" : "center",
