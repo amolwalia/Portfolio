@@ -9,6 +9,51 @@ import { WorkPage } from "./components/pages/WorkPage";
 import { AboutPage } from "./components/pages/AboutPage";
 import { ContactPage } from "./components/pages/ContactPage";
 import { ThreeDPage } from "./components/pages/ThreeDPage";
+import { CaseStudyPage } from "./components/pages/CaseStudyPage";
+const CASE_STUDIES = {
+  scaffold: {
+    title: "Scaffold",
+    role: "Frontend Developer & AI Integration",
+    tools: ["React", "Figma", "OpenAI API"],
+    summary:
+      "Scaffold is an AI-powered funding platform designed to help trades students discover and apply for relevant grants more efficiently. My role focused on building key frontend flows using React, with an emphasis on usability and accessibility. I implemented AI-powered grant matching based on user input and integrated the OpenAI API to allow users to complete application forms using natural language. I also designed dynamic, guided form experiences to reduce friction and improve completion rates. The final product demonstrated how AI-assisted workflows can significantly improve usability and confidence in complex financial processes.",
+    learnings:
+      "Designing AI-driven UX requires transparency and trust, and guided form experiences greatly improve user engagement and task completion.",
+    images: [
+      "https://images.unsplash.com/photo-1551281044-8a500a8d8b1e?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1558655146-364adaf1fcc9?q=80&w=1600&auto=format&fit=crop"
+    ]
+  },
+  dtrmnd: {
+    title: "DTRMND",
+    role: "Frontend Developer & Brand Designer",
+    tools: ["Vite", "React", "Figma", "Adobe", "AI Image Generation"],
+    summary:
+      "DTRMND is a digital streetwear brand experience focused on strong visual identity and enhanced product visualization. I designed the brand's visual system and UI, then built the full frontend using Vite and React with reusable, modular components. A key feature I implemented was an AI-powered virtual try-on, allowing users to upload a photo and preview how selected items would look when worn. I also explored AI image generation to improve product previews and reduce purchase uncertainty. The project combined branding, UI design, and emerging AI tools to create a more engaging and confident shopping experience.",
+    learnings:
+      "Visual consistency builds brand trust, and AI in e-commerce must feel realistic and intuitive to be effective.",
+    images: [
+      "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1460353581641-37baddab0fa2?q=80&w=1600&auto=format&fit=crop"
+    ]
+  },
+  moneymonsters: {
+    title: "MoneyMonsters",
+    role: "UI/UX Designer",
+    tools: ["Figma", "UX Research", "Prototyping"],
+    summary:
+      "MoneyMonsters is a gamified financial literacy app designed to teach children aged 6-16 money management through chores, rewards, and goal tracking. I led the UI/UX design for the project, creating user journeys, wireframes, and high-fidelity interfaces in Figma. I also developed a consistent design system and conducted usability testing to ensure the experience was intuitive for both children and parents. The focus was on translating complex financial concepts into fun, engaging, and age-appropriate interactions that encourage long-term learning.",
+    learnings:
+      "Designing for children requires extreme clarity and simplicity, and gamification is most effective when it directly supports educational outcomes.",
+    images: [
+      "https://images.unsplash.com/photo-1587614382346-4ec70e388b28?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1604594849809-dfedbc827105?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=1600&auto=format&fit=crop"
+    ]
+  }
+};
 function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -63,13 +108,19 @@ function App() {
       case "home":
         return /* @__PURE__ */ jsx(HomePage, {});
       case "work":
-        return /* @__PURE__ */ jsx(WorkPage, {});
+        return /* @__PURE__ */ jsx(WorkPage, { onNavigate: handleNavigate });
       case "3d":
         return /* @__PURE__ */ jsx(ThreeDPage, {});
       case "about":
         return /* @__PURE__ */ jsx(AboutPage, {});
       case "contact":
         return /* @__PURE__ */ jsx(ContactPage, {});
+      case "scaffold":
+        return /* @__PURE__ */ jsx(CaseStudyPage, { study: CASE_STUDIES.scaffold, onNavigate: handleNavigate });
+      case "dtrmnd":
+        return /* @__PURE__ */ jsx(CaseStudyPage, { study: CASE_STUDIES.dtrmnd, onNavigate: handleNavigate });
+      case "moneymonsters":
+        return /* @__PURE__ */ jsx(CaseStudyPage, { study: CASE_STUDIES.moneymonsters, onNavigate: handleNavigate });
       default:
         return /* @__PURE__ */ jsx(HomePage, {});
     }

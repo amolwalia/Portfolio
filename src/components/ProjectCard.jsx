@@ -1,7 +1,14 @@
 import { jsx, jsxs } from "react/jsx-runtime";
 import { motion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
-function ProjectCard({ title, category, year, image, index }) {
+function ProjectCard({ title, category, year, image, index, onClick }) {
+  const handleKeyDown = (event) => {
+    if (!onClick) return;
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      onClick();
+    }
+  };
   return /* @__PURE__ */ jsxs(
     motion.div,
     {
@@ -10,6 +17,10 @@ function ProjectCard({ title, category, year, image, index }) {
       transition: { duration: 0.5, delay: index * 0.1 },
       viewport: { once: true },
       className: "group cursor-pointer",
+      role: onClick ? "button" : void 0,
+      tabIndex: onClick ? 0 : void 0,
+      onClick,
+      onKeyDown: handleKeyDown,
       children: [
         /* @__PURE__ */ jsxs("div", { className: "relative overflow-hidden aspect-[4/3] mb-4 bg-neutral-900", children: [
           /* @__PURE__ */ jsx(
