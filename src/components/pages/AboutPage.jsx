@@ -83,9 +83,9 @@ function AboutPage() {
 
   const stats = [
     { icon: Briefcase, value: "Product + Brand", label: "Focus" },
-    { icon: Users, value: "Cross-functional", label: "Collaboration" },
-    { icon: Award, value: "Research-led", label: "Approach" },
-    { icon: Sparkles, value: "Detail-driven", label: "Execution" },
+    { icon: Users, value: "Cross functional", label: "Collaboration" },
+    { icon: Award, value: "Research led", label: "Approach" },
+    { icon: Sparkles, value: "Detail driven", label: "Execution" },
   ];
 
   return (
