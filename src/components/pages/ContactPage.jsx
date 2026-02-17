@@ -1,6 +1,18 @@
 import { jsx, jsxs } from "react/jsx-runtime";
 import { motion } from "motion/react";
-import { Mail, Github, Linkedin, Twitter, MapPin } from "lucide-react";
+import { Mail, Instagram, Linkedin, MapPin } from "lucide-react";
+function XIcon(props) {
+  return /* @__PURE__ */ jsx(
+    "svg",
+    {
+      viewBox: "0 0 24 24",
+      fill: "currentColor",
+      "aria-hidden": "true",
+      ...props,
+      children: /* @__PURE__ */ jsx("path", { d: "M18.244 2H21l-6.514 7.447L22.14 22h-5.987l-4.69-6.13L6.09 22H3.33l6.966-7.96L1.86 2h6.14l4.24 5.587L18.244 2Zm-1.03 18.24h1.528L7.18 3.66H5.54L17.214 20.24Z" })
+    }
+  );
+}
 function ContactPage() {
   const contactInfo = [
     {
@@ -17,9 +29,9 @@ function ContactPage() {
     }
   ];
   const socials = [
-    { icon: Github, label: "GitHub", href: "https://github.com" },
-    { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com" },
-    { icon: Twitter, label: "Twitter", href: "https://twitter.com" }
+    { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/amol_walia" },
+    { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/manjot-walia/" },
+    { icon: XIcon, label: "X", href: "https://x.com/badtameezfella" }
   ];
   return /* @__PURE__ */ jsx("section", { className: "min-h-screen py-32 px-8 relative flex items-center", children: /* @__PURE__ */ jsx("div", { className: "max-w-6xl mx-auto w-full", children: /* @__PURE__ */ jsxs("div", { className: "grid md:grid-cols-2 gap-16", children: [
     /* @__PURE__ */ jsxs(

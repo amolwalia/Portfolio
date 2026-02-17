@@ -17,18 +17,18 @@ const CASE_STUDIES = {
     tools: [
       {
         name: "React",
-        kind: "brand",
-        icon: "https://cdn.simpleicons.org/react",
+        kind: "glyph",
+        icon: "react",
       },
       {
         name: "Figma",
-        kind: "brand",
-        icon: "https://cdn.simpleicons.org/figma",
+        kind: "glyph",
+        icon: "figma",
       },
       {
         name: "OpenAI API",
-        kind: "brand",
-        icon: "https://cdn.simpleicons.org/openai",
+        kind: "glyph",
+        icon: "openai",
       },
     ],
     summary:
@@ -41,23 +41,23 @@ const CASE_STUDIES = {
     title: "DTRMND",
     role: "Product Designer, Interface Designer, Experience Architect",
     tools: [
-      { name: "Vite", kind: "brand", icon: "https://cdn.simpleicons.org/vite" },
+      { name: "Vite", kind: "glyph", icon: "vite" },
       {
         name: "React",
-        kind: "brand",
-        icon: "https://cdn.simpleicons.org/react",
+        kind: "glyph",
+        icon: "react",
       },
       {
         name: "Figma",
-        kind: "brand",
-        icon: "https://cdn.simpleicons.org/figma",
+        kind: "glyph",
+        icon: "figma",
       },
       {
         name: "Adobe",
-        kind: "brand",
-        icon: "https://cdn.simpleicons.org/adobe",
+        kind: "glyph",
+        icon: "adobe",
       },
-      { name: "AI Image Generation", kind: "glyph", icon: "sparkles" },
+      { name: "AI Image Generation", kind: "glyph", icon: "ai" },
     ],
     summary:
       "DTRMND is an experimental ecommerce concept centered on an AI powered virtual try-on workflow, built to reduce uncertainty in online clothing purchases. I led the end to end product design and implementation direction, defining feature architecture, storefront structure, and interaction logic across image upload, garment selection, previewing, and purchase flow. The concept rethought the traditional ecommerce funnel by making try-on the primary interaction rather than a hidden secondary tool. Through iterative prototyping, I refined feedback states, preview transitions, and interaction pacing while maintaining a minimal fashion retail visual language that kept attention on product and AI output.",
@@ -71,8 +71,8 @@ const CASE_STUDIES = {
     tools: [
       {
         name: "Figma",
-        kind: "brand",
-        icon: "https://cdn.simpleicons.org/figma",
+        kind: "glyph",
+        icon: "figma",
       },
       { name: "UX Research", kind: "glyph", icon: "search" },
       { name: "Prototyping", kind: "glyph", icon: "pentool" },

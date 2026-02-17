@@ -5,21 +5,21 @@ function WorkPage({ onNavigate }) {
   const projects = [
     {
       id: "scaffold",
-      title: "Scaffold",
+      title: "Building a Digital Bridge Between Apprentices and Opportunity",
       category: "Frontend Developer & AI Integration",
       year: "2025",
       image: "/SCAFF0.png",
     },
     {
       id: "dtrmnd",
-      title: "DTRMND",
+      title: "Reinventing the Online Clothing Store With AI Try-On",
       category: "Frontend Developer & Brand Designer",
       year: "2025",
       image: "/DTR0.png",
     },
     {
       id: "moneymonsters",
-      title: "MoneyMonsters",
+      title: "Turning Financial Literacy Into Play",
       category: "UI/UX Designer",
       year: "2025",
       image: "/MM0.png",
@@ -99,7 +99,7 @@ function WorkPage({ onNavigate }) {
               className="text-sm uppercase tracking-wider text-neutral-500"
               style={{ fontFamily: "Montserrat, sans-serif", fontWeight: 500 }}
             >
-              Available on request
+              Coming Soon!
             </div>
           </div>
         </motion.div>
