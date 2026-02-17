@@ -3,7 +3,7 @@ import { motion } from "motion/react";
 
 function HomePage({ onNavigate }) {
   const [viewportHeight, setViewportHeight] = useState(
-    typeof window !== "undefined" ? window.innerHeight : 800
+    typeof window !== "undefined" ? window.innerHeight : 800,
   );
   useEffect(() => {
     const handleResize = () => setViewportHeight(window.innerHeight || 800);
@@ -12,7 +12,7 @@ function HomePage({ onNavigate }) {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
   const heroSpacer = Math.round(
-    Math.max(viewportHeight * 1.15, viewportHeight + 160)
+    Math.max(viewportHeight * 1.15, viewportHeight + 160),
   );
 
   return (
@@ -49,8 +49,8 @@ function HomePage({ onNavigate }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            Minimal, premium design and marketing for brands that value clarity,
-            restraint, and sharp execution.
+            Using marketing to bring people in, and design to help them
+            understand and take action.
           </motion.p>
 
           <motion.div

@@ -222,7 +222,7 @@ function App() {
         <div
           className="fixed top-0 left-0 right-0 h-7 flex items-center justify-center text-[10px] font-semibold tracking-[0.12em] group cursor-pointer"
           onClick={() => setShowDevBanner(false)}
-          title="tap to close"
+          title="Tap to close"
           style={{
             zIndex: 99999,
             backgroundColor: "rgba(18,18,18,0.92)",
