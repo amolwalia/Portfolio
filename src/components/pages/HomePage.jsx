@@ -49,7 +49,7 @@ function HomePage({ onNavigate }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            Using marketing to bring people in, and design to help them
+            I use marketing to bring people in, and design to help them
             understand and take action.
           </motion.p>
 
