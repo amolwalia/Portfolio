@@ -7,9 +7,11 @@ import {
   Text,
   useGLTF,
 } from "@react-three/drei";
+import { useTheme } from "next-themes@0.4.6";
 
 export default function Model() {
   const { scene } = useGLTF("/AW-glass.glb");
+  const { resolvedTheme } = useTheme();
   const group = useRef(null);
   const materialProps = {
     thickness: 0.2,
@@ -26,7 +28,7 @@ export default function Model() {
         font="/AkiraExpanded.otf"
         position={[0, 0, -0.42]}
         fontSize={0.3}
-        color="white"
+        color={resolvedTheme === "light" ? "black" : "white"}
         anchorX="center"
         anchorY="middle"
       >
