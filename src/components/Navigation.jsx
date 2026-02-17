@@ -50,13 +50,12 @@ function Navigation({ currentPath, onNavigate }) {
   const paddingY = isHome ? 28 - progress * 14 : 16;
   const isCollapsed = !isHome || progress >= 1;
   const logoHeight = isCollapsed ? 280 : null;
-  const logoBaseSize = logoHeight ?? 800;
   const logoOffsetY = isCollapsed ? -40 : 0;
   const navItems = [
-    // { path: "/", label: "Home" },
-    // { path: "/work", label: "Works" },
-    // { path: "/about", label: "About" },
-    // { path: "/contact", label: "Contact" },
+    { path: "/", label: "Home" },
+    { path: "/work", label: "Works" },
+    { path: "/about", label: "About" },
+    { path: "/contact", label: "Contact" },
   ];
 
   const isActivePath = (itemPath) =>
@@ -74,7 +73,7 @@ function Navigation({ currentPath, onNavigate }) {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className="fixed top-6 left-0 right-0 z-50 px-8 flex justify-center items-center backdrop-blur-sm"
+      className="fixed top-6 left-0 right-0 z-50 px-8 flex justify-between items-center backdrop-blur-sm"
       style={{
         backgroundColor: `rgba(0, 0, 0, ${navOpacity})`,
         height: `${heroHeight}px`,
@@ -83,13 +82,13 @@ function Navigation({ currentPath, onNavigate }) {
       }}
     >
       <motion.div
-        className="flex items-center justify-center px-0"
+        className="flex items-center justify-start pl-0 pr-6"
         whileHover={{ scale: logoScale + 0.05 }}
         animate={{ scale: logoScale, y: logoOffsetY }}
         transition={{ type: "tween", duration: 0.35, ease: "easeOut" }}
         style={{
-          transformOrigin: "center center",
-          alignSelf: "center",
+          transformOrigin: "left center",
+          alignSelf: isCollapsed ? "flex-start" : "center",
         }}
       >
         <div
@@ -102,8 +101,8 @@ function Navigation({ currentPath, onNavigate }) {
             event.stopPropagation();
           }}
           style={{
-            height: `${logoBaseSize}px`,
-            width: `${logoBaseSize * 1.5}px`,
+            height: `${logoHeight ?? 800}px`,
+            width: `${(logoHeight ?? 700) * 1.5}px`,
             pointerEvents: "auto",
           }}
         >
@@ -111,27 +110,25 @@ function Navigation({ currentPath, onNavigate }) {
         </div>
       </motion.div>
 
-      {navItems.length > 0 ? (
-        <div className="absolute right-8 flex gap-8">
-          {navItems.map((item) => (
-            <motion.a
-              key={item.path}
-              href={item.path}
-              onClick={(event) => handleLinkClick(event, item.path)}
-              className={`uppercase transition-colors tracking-wider ${
-                isActivePath(item.path)
-                  ? "text-white"
-                  : "text-neutral-400 hover:text-white"
-              }`}
-              style={{ fontFamily: "Montserrat, sans-serif", fontWeight: 500 }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {item.label}
-            </motion.a>
-          ))}
-        </div>
-      ) : null}
+      <div className="flex gap-8">
+        {navItems.map((item) => (
+          <motion.a
+            key={item.path}
+            href={item.path}
+            onClick={(event) => handleLinkClick(event, item.path)}
+            className={`uppercase transition-colors tracking-wider ${
+              isActivePath(item.path)
+                ? "text-white"
+                : "text-neutral-400 hover:text-white"
+            }`}
+            style={{ fontFamily: "Montserrat, sans-serif", fontWeight: 500 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            {item.label}
+          </motion.a>
+        ))}
+      </div>
     </motion.nav>
   );
 }
