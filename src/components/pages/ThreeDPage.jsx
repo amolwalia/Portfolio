@@ -19,6 +19,7 @@ import {
   Vector3,
 } from "three";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { EXRLoader } from "three/examples/jsm/loaders/EXRLoader.js";
 
 const SHOW_HELPERS = false;
@@ -178,6 +179,68 @@ function GlassModel() {
   );
 }
 
+function CanModel() {
+  const gltf = useLoader(GLTFLoader, "/SMH-can.glb");
+  const model = useMemo(() => gltf.scene, [gltf]);
+  const groupRef = useRef(null);
+  const { camera } = useThree();
+
+  useLayoutEffect(() => {
+    const bounds = new Box3().setFromObject(model);
+    const size = new Vector3();
+    const center = new Vector3();
+    bounds.getSize(size);
+    bounds.getCenter(center);
+
+    if (groupRef.current) {
+      groupRef.current.position.set(-center.x, -center.y, -center.z);
+      groupRef.current.rotation.set(0.15, -0.5, 0.05);
+    }
+
+    const maxDim = Math.max(size.x, size.y, size.z);
+    const normalizedScale =
+      Number.isFinite(maxDim) && maxDim > 0 ? 1 / maxDim : 1;
+    const clampedScale = Math.min(Math.max(normalizedScale, 0.01), 100);
+    const finalScale = clampedScale * 0.9;
+    if (groupRef.current) {
+      groupRef.current.scale.setScalar(finalScale);
+    }
+  }, [model]);
+
+  useLayoutEffect(() => {
+    model.traverse((child) => {
+      if (child instanceof Mesh) {
+        child.castShadow = true;
+        child.receiveShadow = false;
+        if (child.material) {
+          child.material.needsUpdate = true;
+        }
+      }
+    });
+  }, [model]);
+
+  useLayoutEffect(() => {
+    const target = groupRef.current;
+    if (!target) return;
+    const bounds = new Box3().setFromObject(target);
+    const size = new Vector3();
+    bounds.getSize(size);
+    const maxDim = Math.max(size.x, size.y, size.z);
+    const distance = Number.isFinite(maxDim) && maxDim > 0 ? maxDim * 3.1 : 3;
+    camera.position.set(0, maxDim * 0.15, distance);
+    camera.near = Math.max(distance / 100, 0.01);
+    camera.far = Math.max(distance * 100, 1000);
+    camera.lookAt(0, 0, 0);
+    camera.updateProjectionMatrix();
+  }, [camera, model]);
+
+  return (
+    <group ref={groupRef}>
+      <primitive object={model} />
+    </group>
+  );
+}
+
 function ThreeDPage() {
   return (
     <section className="min-h-screen py-32 px-8 relative">
@@ -263,6 +326,91 @@ function ThreeDPage() {
               enableZoom
               minDistance={1.5}
               maxDistance={12}
+              rotateSpeed={0.85}
+            />
+          </Canvas>
+        </div>
+        <div className="mt-20 mb-10">
+          <h2
+            className="text-3xl md:text-5xl mb-3 uppercase tracking-wider"
+            style={{
+              fontFamily: "Akira Expanded, sans-serif",
+              fontWeight: 800,
+            }}
+          >
+            Smash Cocktail Can
+          </h2>
+          <p
+            className="text-lg text-neutral-400 max-w-2xl"
+            style={{ fontFamily: "Montserrat, sans-serif", fontWeight: 300 }}
+          >
+            A metallic cocktail can modelled in Blender. Drag to spin it and use
+            the scroll wheel to zoom.
+          </p>
+        </div>
+        <div
+          className="w-full"
+          style={{ position: "relative", height: "85vh", minHeight: "680px" }}
+        >
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              background:
+                "radial-gradient(120% 120% at 70% 5%, rgba(255, 216, 160, 0.2) 0%, rgba(28, 20, 12, 0.5) 40%, rgba(0, 0, 0, 0.92) 100%)",
+              borderRadius: "24px",
+              zIndex: 0,
+            }}
+          />
+          <Canvas
+            dpr={[1, 2]}
+            camera={{ fov: 40, position: [0, 0.2, 2.4], near: 0.1, far: 1000 }}
+            gl={{ antialias: true, alpha: true }}
+            style={{
+              position: "relative",
+              zIndex: 1,
+              width: "100%",
+              height: "100%",
+            }}
+            onCreated={({ gl }) => {
+              gl.setClearColor(0, 0);
+              gl.outputColorSpace = SRGBColorSpace;
+              gl.toneMapping = ACESFilmicToneMapping;
+              gl.toneMappingExposure = 1.05;
+              gl.physicallyCorrectLights = true;
+            }}
+          >
+            <ambientLight intensity={0.6} />
+            <directionalLight intensity={1} position={[4, 5, 6]} />
+            <directionalLight
+              intensity={0.5}
+              position={[-5, 2, -3]}
+              color={0xffd8a0}
+            />
+            <Suspense fallback={null}>
+              <Center>
+                <CanModel />
+              </Center>
+            </Suspense>
+            <EnvironmentMap />
+            {SHOW_HELPERS && (
+              <gridHelper args={[5, 10, "#3f3f46", "#27272a"]} />
+            )}
+            {SHOW_HELPERS && <axesHelper args={[1.5]} />}
+            <EffectComposer multisampling={4}>
+              <ChromaticAberration offset={[0.0015, 0.006]} radialModulation />
+              <Bloom
+                luminanceThreshold={0.1}
+                luminanceSmoothing={0.22}
+                intensity={0.4}
+              />
+            </EffectComposer>
+            <OrbitControls
+              enableDamping
+              enablePan={false}
+              enableZoom
+              minDistance={1.2}
+              maxDistance={10}
               rotateSpeed={0.85}
             />
           </Canvas>
