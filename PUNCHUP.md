@@ -90,42 +90,7 @@ This will be an interaction embedded into my portfolio, not a standalone page.
 
 ### Layout
 
-#### Desktop
-
-+------------------------------------------------------+
-| |
-| |
-| [ 3D GLASS LOGO FLOATING ] NAV |
-| |
-| Large name text behind object |
-| Distorted through refraction |
-| |
-+------------------------------------------------------+
-
-#### Mobile
-
-+-----------------------------------+
-| |
-| |
-| |
-| |
-| |
-| |
-| |
-| |
-| [ 3D GLASS LOGO FLOATING ] |  
-| NAV |
-| |
-| Large name text behind object |
-| Distorted through refraction |
-| |
-| |
-| |
-| |
-| |
-| |
-| |
-+-----------------------------------+
+![Lo-fi layout prototype](./public/AW1.gif)
 
 ---
 
