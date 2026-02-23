@@ -1,106 +1,242 @@
-# PUNCHUP.md
-
-# Prism Glass 3D Exploration ✨🧊
-
-> A living project note for the 3D work currently in this portfolio.
+# ✨ Interactive Prism-Glass 3D Logo Hero (Three.js)
 
 ---
 
-## What this project is (currently true) ✅
+## Description
 
-This portfolio includes an interactive real-time 3D section built with Three.js via React Three Fiber.
+I will create a real-time interactive 3D hero section where my “AW” logo exists as a solid prism-glass object instead of a flat image.
 
-- A prism-glass style logo model appears on the `/3d` page
-- The model uses physically based glass-like materials
-- HDR-style environment lighting/reflections are applied
-- Users can click/drag to rotate and scroll to zoom
-- Post-processing adds bloom + chromatic aberration polish
-- A separate visual backdrop (`Scene3D`) is shown behind non-3D pages
+The logo behaves like physical glass: it bends light, distorts text behind it, and catches sharp highlights along its edges.  
+The goal is to make the identity itself feel like a physical object living inside the page rather than decoration on it.
 
----
+This will be rendered live using Three.js — not a video, not a GIF, not a fake shader trick.
 
-## Where it lives in the site 🗺️
-
-- Dedicated 3D experience route: `/3d`
-- Not currently embedded as an interactive homepage hero canvas
-- Homepage still has branded typography + CTA content
+🧊 The page doesn’t show a logo.  
+It _hosts_ it.
 
 ---
 
-## What is implemented in code 🛠️
+## What is the work you’re taking on?
 
-### Glass logo scene
+### Build a reusable portfolio hero component
 
-- `MeshPhysicalMaterial` settings for glass realism:
-  - transmission
-  - ior
-  - roughness
-  - thickness
-- Layered RGB-tinted passes for prism-like color separation
-- EXR environment map processing for reflections
-- ACES tone mapping + sRGB output setup
+A full-width landing section containing:
 
-### Interaction model
-
-- Drag rotation and zoom using `OrbitControls`
-- Damped camera controls for smooth movement
-- Full 360 style object inspection
-
-### Render quality choices
-
-- `dpr={[1, 2]}` to keep rendering practical on different displays
-- Responsive canvas containers with large viewport-driven layout blocks
-- Post effects: `Bloom` + `ChromaticAberration`
+- A prism-glass 3D logo
+- Large typography positioned behind the object
+- Cursor-driven motion
+- Subtle idle animation
+- Responsive performance controls
 
 ---
 
-## Libraries currently used 📚
+### Core visual features
 
-- `three`
-- `@react-three/fiber`
-- `@react-three/drei`
-- `@react-three/postprocessing`
-- `FBXLoader` (logo mesh)
-- `GLTFLoader` (secondary can model)
-- `EXRLoader` (environment)
-- `OrbitControls`
+#### Glass material
 
----
+- Physically-based transmission
+- Strong rim highlights ✨
+- Slight tint and depth
+- Subtle chromatic edge splitting 🌈
+- Internal reflections
 
-## Creative Direction 🎨
+#### Refraction interaction
 
-Design intent:
+- Background title text sits behind the logo
+- Text warps and bends through the object
+- Different distortion depending on camera angle
 
-- Crystal / prism energy, not plastic gloss
-- Controlled motion that feels premium
-- Strong contrast between dark stage and glowing highlights
-- Technical depth without visual clutter
+#### Lighting setup
 
-Keywords:
-`glass` `precision` `iridescence` `editorial` `interactive`
+- Dark studio environment 🌑
+- Soft key light
+- Edge/rim light accents
+- HDR reflections for realism
 
 ---
 
-## Reality Check: What is *not* implemented yet 🚧
+### Motion behavior
 
-- Cursor-reactive light position
-- Gyroscope-based mobile parallax
-- Explicit low-power fallback mode switch
-- Homepage-embedded interactive 3D hero
-
-These are potential next upgrades, not current behavior.
-
----
-
-## Why this strengthens the portfolio 💼
-
-- Shows real-time 3D/WebGL capability in production UI context
-- Demonstrates taste + engineering balance (visual quality vs performance)
-- Turns static branding into an interactive technical artifact
-- Adds depth beyond standard 2D portfolio layouts
+- Cursor move → gentle tilt
+- Idle → slow floating rotation 🫧
+- Hover → highlight intensity increases slightly
+- Reduced-motion preference → motion disabled
+- Low-power device → simplified rendering ⚙️
 
 ---
 
-## Mini Experience Map 🎮
+## How does this enhance my body of work?
 
-`Enter /3d` -> `See refractive form` -> `Drag to inspect` -> `Zoom for detail` -> `Experience material realism`
+Instead of showing a project, the landing section becomes the project.
+
+It demonstrates:
+
+- Real-time rendering
+- Material realism
+- Interaction restraint
+- Integration of design + development
+
+The logo becomes proof of capability rather than branding decoration.
+
+🧠 Viewer takeaway within 2 seconds:
+
+> This person understands both visuals and implementation.
+
+This will be an interaction embedded into my portfolio, not a standalone page.
+
+---
+
+## Lo-fi Mockups
+
+### Layout
+
+#### Desktop
+
++------------------------------------------------------+
+| |
+| |
+| [ 3D GLASS LOGO FLOATING ] NAV |
+| |
+| Large name text behind object |
+| Distorted through refraction |
+| |
++------------------------------------------------------+
+
+#### Mobile
+
++-----------------------------------+
+| |
+| |
+| |
+| |
+| |
+| |
+| |
+| |
+| [ 3D GLASS LOGO FLOATING ] |  
+| NAV |
+| |
+| Large name text behind object |
+| Distorted through refraction |
+| |
+| |
+| |
+| |
+| |
+| |
+| |
++-----------------------------------+
+
+---
+
+### Interaction
+
+Move mouse → tilt
+Stop moving → slow float
+Hover → light intensifies
+Scroll → depth shift (optional)
+
+---
+
+### Mobile
+
+Touch drag → rotate
+Low performance → simplified material
+
+---
+
+## Examples to help explain the concept
+
+Concept inspiration:
+
+- Product-style hero sections
+- Real-time WebGL landing pages
+- Typography interacting with objects
+
+Creative intention:
+The object should feel like it exists _between the viewer and the page_.  
+Not on the page. Not behind it.  
+Floating in UI space.
+
+🪟 A window, not an image.
+
+---
+
+## Resources I plan on using
+
+### Libraries
+
+- Three.js
+- GLTFLoader
+- RGBELoader
+- OrbitControls (restricted movement)
+
+### Assets
+
+- Logo modeled in Blender → exported as glTF
+- HDR environment maps
+- Tone mapping & exposure control
+
+### Techniques
+
+- MeshPhysicalMaterial transmission
+- Environment reflections
+- Refraction distortion
+- Responsive renderer scaling
+- requestAnimationFrame loop
+
+---
+
+## Fears, uncertainties, doubts
+
+### Performance
+
+Glass rendering is resource expensive 🐢  
+Mobile devices may struggle
+
+Possible solutions:
+
+- Pixel ratio clamp
+- Conditional effects
+- Fallback material
+
+---
+
+### Realism tuning
+
+Small parameter changes dramatically affect appearance:
+
+- IOR
+- thickness
+- roughness
+- environment intensity
+
+Expect iteration cycles 🔁
+
+---
+
+### Interaction balance
+
+Too much motion = distracting  
+Too little motion = lifeless
+
+Goal: noticeable but calm
+
+---
+
+### Geometry preparation
+
+Incorrect normals or topology will break highlights  
+Model cleanup may be required
+
+---
+
+## Success criteria
+
+✔ Glass feels physical  
+✔ Text visibly refracts through object  
+✔ Motion is subtle and smooth  
+✔ Runs across devices  
+✔ Works as reusable component
+
+---
