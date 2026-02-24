@@ -1075,7 +1075,7 @@
 }
 
 :root {
-  --font-size: 16px;
+  --font-size: clamp(16px, 0.62vw, 18.5px);
   --background: #fff;
   --foreground: oklch(0.145 0 0);
   --card: #fff;
@@ -1158,6 +1158,8 @@ html {
 
 body {
   font-family: Montserrat, sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
 }
 
 h1,
@@ -1390,7 +1392,9 @@ h6 {
   border-radius: 10px;
   border: 1px solid rgba(0, 0, 0, 0.12);
   background: rgba(0, 0, 0, 0.06);
-  transition: transform 0.2s ease, border-color 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .tool-icon img,
@@ -1461,4 +1465,453 @@ h6 {
   --scene-gradient-opacity: 0.75;
   --scene-glow-opacity: 0.35;
   --scene-noise-opacity: 0.08;
+}
+
+.work-index-shell {
+  min-height: 100vh;
+  padding: 9rem 2rem 5rem;
+  position: relative;
+}
+
+.work-index-frame {
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
+.work-index-header h1 {
+  font-family: "Akira Expanded", sans-serif;
+  font-size: clamp(2.6rem, 6.2vw, 5.2rem);
+  margin: 0;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.work-index-header p {
+  margin-top: 1.25rem;
+  max-width: 920px;
+  font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.work-grid {
+  margin-top: 2.75rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.work-card {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.work-card-media {
+  width: 100%;
+  border: 0;
+  padding: 0;
+  display: block;
+  cursor: pointer;
+}
+
+.work-card-media img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+}
+
+.work-card-content {
+  padding: 1.2rem 1.2rem 1.5rem;
+}
+
+.work-card-kicker {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.58);
+}
+
+.work-card h2 {
+  margin: 0.55rem 0 0.35rem;
+  font-size: 1.3rem;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.work-card-project {
+  margin: 0;
+  font-size: 0.95rem !important;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.72) !important;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0.01em;
+}
+
+.work-card-content p {
+  margin: 0.85rem 0 0;
+  font-size: 1.08rem;
+  color: rgba(255, 255, 255, 0.74);
+  line-height: 1.65;
+}
+
+.work-card-link {
+  margin-top: 1.15rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
+  color: inherit;
+  border-radius: 999px;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+}
+
+.case-study-shell {
+  min-height: 100vh;
+  padding: 9rem 2.5rem 6rem;
+  position: relative;
+  font-size: 1.12rem;
+}
+
+.case-study-frame {
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
+.case-kicker {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.case-back-link {
+  border: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+  padding: 0;
+  margin: 0 0 1rem;
+  cursor: pointer;
+}
+
+.case-hero h1 {
+  margin: 0.9rem 0 0;
+  max-width: 980px;
+  font-size: clamp(1.85rem, 2.5vw, 2.8rem);
+  line-height: 1.24;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.case-project-name {
+  margin: 0.7rem 0 0;
+  max-width: 1120px;
+  line-height: 1.2;
+  font-size: 1rem;
+  font-family: "Montserrat", sans-serif;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.66);
+}
+
+.case-meta-grid {
+  margin-top: 1.75rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.case-meta-item {
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 0.8rem;
+  padding: 1.15rem 1.3rem;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.case-meta-item p {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.case-summary-card {
+  margin-top: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 0.8rem;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 1rem 1.2rem;
+}
+
+.case-summary-card p {
+  margin: 0.4rem 0 0;
+  line-height: 1.7;
+}
+
+.case-label {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.54);
+}
+
+.case-hero-media {
+  margin: 1.6rem 0 0;
+}
+
+.case-media {
+  width: 100%;
+  border-radius: 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.35);
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.case-hero-media figcaption,
+.case-figure figcaption {
+  margin-top: 0.5rem;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 1rem;
+}
+
+.case-body-layout {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.2rem;
+}
+
+.case-toc {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 0.9rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.case-toc-title {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.56);
+}
+
+.case-toc ul {
+  margin: 0.85rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.52rem;
+}
+
+.case-toc a {
+  color: rgba(255, 255, 255, 0.82);
+  text-decoration: none;
+  font-size: 1.2rem;
+  line-height: 1.45;
+}
+
+.case-content {
+  display: grid;
+  gap: 1.35rem;
+}
+
+.case-section {
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  padding-top: 1.15rem;
+}
+
+.case-section-title {
+  margin: 0;
+  font-size: clamp(1.2rem, 1.6vw, 1.75rem);
+  font-family: "Akira Expanded", sans-serif;
+}
+
+.case-paragraphs {
+  margin-top: 0.75rem;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.case-paragraphs p,
+.case-process-body p,
+.case-design-item p,
+.case-callout p {
+  margin: 0;
+  font-size: 1.08rem;
+  color: rgba(255, 255, 255, 0.83);
+  line-height: 1.72;
+}
+
+.case-callout {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 0.95rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.case-process-list {
+  margin-top: 0.9rem;
+  display: grid;
+  gap: 0.85rem;
+}
+
+.case-process-item {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 0.95rem;
+  padding: 1.15rem;
+  display: grid;
+  grid-template-columns: 62px 1fr;
+  gap: 0.75rem;
+}
+
+.case-process-number {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  display: grid;
+  place-items: center;
+  font-family: "Akira Expanded", sans-serif;
+  font-size: 1.08rem;
+}
+
+.case-process-body h3,
+.case-design-item h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-family: "Akira Expanded", sans-serif;
+}
+
+.case-process-body p {
+  margin-top: 0.45rem;
+}
+
+.case-process-takeaway {
+  margin-top: 0.6rem;
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+.case-designs-list {
+  margin-top: 0.9rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.case-design-item {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 0.95rem;
+  padding: 1.2rem;
+}
+
+.case-design-copy-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.case-media-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  margin-top: 0.9rem;
+}
+
+.case-media-grid-two {
+  grid-template-columns: 1fr;
+}
+
+.case-figure {
+  margin: 0;
+}
+
+.case-study-footer-nav {
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  margin-top: 1.2rem;
+  padding-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.case-nav-link {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  padding: 0.7rem 1.1rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.case-nav-link:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.case-not-found {
+  border: 1px solid rgba(255, 255, 255, 0.17);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  display: grid;
+  gap: 0.9rem;
+}
+
+.case-not-found h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  font-family: "Akira Expanded", sans-serif;
+}
+
+@media (min-width: 900px) {
+  .work-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .case-body-layout {
+    grid-template-columns: 320px minmax(0, 1fr);
+    gap: 2.5rem;
+  }
+
+  .case-toc-wrap {
+    position: relative;
+  }
+
+  .case-toc {
+    position: sticky;
+    top: 9rem;
+  }
+
+  .case-content {
+    gap: 1.75rem;
+  }
+
+  .case-section {
+    padding-top: 1.45rem;
+  }
+
+  .case-design-copy-grid,
+  .case-media-grid,
+  .case-media-grid-two {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1600px) {
+  .case-study-shell {
+    font-size: 1.2rem;
+  }
 }

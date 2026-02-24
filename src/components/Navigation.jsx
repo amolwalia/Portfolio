@@ -116,7 +116,7 @@ function Navigation({ currentPath, onNavigate }) {
             key={item.path}
             href={item.path}
             onClick={(event) => handleLinkClick(event, item.path)}
-            className={`uppercase transition-colors tracking-wider ${
+            className={`uppercase transition-colors tracking-wider text-xs md:text-sm lg:text-base ${
               isActivePath(item.path)
                 ? "text-white"
                 : "text-neutral-400 hover:text-white"

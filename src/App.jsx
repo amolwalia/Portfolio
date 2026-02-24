@@ -4,86 +4,11 @@ import { useTheme } from "next-themes@0.4.6";
 import { Scene3D } from "./components/Scene3D";
 import { Navigation } from "./components/Navigation";
 import { HomePage } from "./components/pages/HomePage";
-import { WorkPage } from "./components/pages/WorkPage";
 import { AboutPage } from "./components/pages/AboutPage";
 import { ContactPage } from "./components/pages/ContactPage";
-import { ThreeDPage } from "./components/pages/ThreeDPage";
-import { CaseStudyPage } from "./components/pages/CaseStudyPage";
-
-const CASE_STUDIES = {
-  scaffold: {
-    title: "Scaffold",
-    role: "Product Designer, UI/UX Strategist, Experience Architect",
-    tools: [
-      {
-        name: "React",
-        kind: "glyph",
-        icon: "react",
-      },
-      {
-        name: "Figma",
-        kind: "glyph",
-        icon: "figma",
-      },
-      {
-        name: "OpenAI API",
-        kind: "glyph",
-        icon: "openai",
-      },
-    ],
-    summary:
-      "Scaffold is an AI powered platform concept designed to help apprentices find grants, subsidies, and career opportunities that are usually fragmented across difficult systems. I contributed to product design, UI and UX strategy, and end to end experience architecture, including onboarding, profile setup, opportunity discovery, and progress tracking. Grounded in research on real friction points such as confusing eligibility language and time intensive processes, I translated insights into personas, journey maps, and modular interface systems that prioritized clarity and speed. The final prototype demonstrated a centralized, personalized experience that made complex institutional information more actionable and easier to navigate.",
-    learnings:
-      "This project reinforced how research driven interface decisions reduce cognitive load in information heavy products, and strengthened my ability to build scalable design systems around real user pain points.",
-    images: ["/SCAFF1.png", "/SCAFF2.png"],
-  },
-  dtrmnd: {
-    title: "DTRMND",
-    role: "Product Designer, Interface Designer, Experience Architect",
-    tools: [
-      { name: "Vite", kind: "glyph", icon: "vite" },
-      {
-        name: "React",
-        kind: "glyph",
-        icon: "react",
-      },
-      {
-        name: "Figma",
-        kind: "glyph",
-        icon: "figma",
-      },
-      {
-        name: "Adobe",
-        kind: "glyph",
-        icon: "adobe",
-      },
-      { name: "AI Image Generation", kind: "glyph", icon: "ai" },
-    ],
-    summary:
-      "DTRMND is an experimental ecommerce concept centered on an AI powered virtual try-on workflow, built to reduce uncertainty in online clothing purchases. I led the end to end product design and implementation direction, defining feature architecture, storefront structure, and interaction logic across image upload, garment selection, previewing, and purchase flow. The concept rethought the traditional ecommerce funnel by making try-on the primary interaction rather than a hidden secondary tool. Through iterative prototyping, I refined feedback states, preview transitions, and interaction pacing while maintaining a minimal fashion retail visual language that kept attention on product and AI output.",
-    learnings:
-      "The project strengthened my ability to integrate emerging AI capabilities into familiar product patterns while preserving usability, and reinforced that trust building UX is essential in ecommerce decision making.",
-    images: ["/DTR1.png", "/DTR2.png"],
-  },
-  moneymonsters: {
-    title: "MoneyMonsters",
-    role: "Lead UI/UX Designer",
-    tools: [
-      {
-        name: "Figma",
-        kind: "glyph",
-        icon: "figma",
-      },
-      { name: "UX Research", kind: "glyph", icon: "search" },
-      { name: "Prototyping", kind: "glyph", icon: "pentool" },
-    ],
-    summary:
-      "MoneyMonsters is a financial education app concept designed to help children build money management skills through interactive, gamified tasks tied to chores and allowance tracking. I led the UI and UX process across research synthesis, interface design, and prototyping, while balancing a dual audience experience for both children and parents. Research on child learning behavior and parental expectations informed a product structure focused on immediate feedback, simple navigation, and motivating reward loops. Through iterative wireframing and high fidelity prototyping, I developed a playful but clear visual language that translated educational goals into practical interface mechanics.",
-    learnings:
-      "This project improved my ability to design for multiple user groups in one system and reinforced the value of empathy driven, iterative design when turning abstract learning outcomes into engaging product experiences.",
-    images: ["/MM1.png"],
-  },
-};
+import { Work } from "./components/pages/Work.tsx";
+import { CaseStudy } from "./components/pages/CaseStudy.tsx";
+import { caseStudiesBySlug, caseStudies } from "./data/caseStudies.ts";
 
 const BASE_ROUTES = {
   home: "/",
@@ -108,28 +33,34 @@ function getPathFromLocation() {
 
 function getRouteState(pathname) {
   const path = normalizePath(pathname);
+
   if (path === BASE_ROUTES.home) return { page: "home", studySlug: null };
   if (path === BASE_ROUTES.work) return { page: "work", studySlug: null };
-  if (path === BASE_ROUTES.threeD) return { page: "threeD", studySlug: null };
   if (path === BASE_ROUTES.about) return { page: "about", studySlug: null };
   if (path === BASE_ROUTES.contact) return { page: "contact", studySlug: null };
+
   if (path.startsWith("/work/")) {
     const slug = path.replace("/work/", "");
-    if (CASE_STUDIES[slug]) {
+    if (caseStudiesBySlug.has(slug)) {
       return { page: "caseStudy", studySlug: slug };
     }
   }
+
   return { page: "home", studySlug: null };
 }
 
 function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+
   useEffect(() => {
     setMounted(true);
   }, []);
+
   if (!mounted) return null;
+
   const isDark = resolvedTheme === "dark";
+
   return (
     <button
       type="button"
@@ -172,6 +103,7 @@ function App() {
       setCurrentPath(getPathFromLocation());
       window.scrollTo({ top: 0, behavior: "smooth" });
     };
+
     window.addEventListener("popstate", handlePopState);
     return () => window.removeEventListener("popstate", handlePopState);
   }, []);
@@ -180,6 +112,7 @@ function App() {
     const nextPath = normalizePath(path);
     if (typeof window === "undefined") return;
     if (nextPath === currentPath) return;
+
     window.history.pushState({}, "", nextPath);
     setCurrentPath(nextPath);
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -190,7 +123,7 @@ function App() {
       case "home":
         return <HomePage onNavigate={handleNavigate} />;
       case "work":
-        return <WorkPage onNavigate={handleNavigate} />;
+        return <Work studies={caseStudies} onNavigate={handleNavigate} />;
       case "threeD":
         return <ThreeDPage />;
       case "about":
@@ -198,12 +131,7 @@ function App() {
       case "contact":
         return <ContactPage />;
       case "caseStudy":
-        return (
-          <CaseStudyPage
-            study={CASE_STUDIES[studySlug]}
-            onNavigate={handleNavigate}
-          />
-        );
+        return <CaseStudy slug={studySlug} onNavigate={handleNavigate} />;
       default:
         return <HomePage onNavigate={handleNavigate} />;
     }
@@ -234,8 +162,10 @@ function App() {
           Website under development and testing
         </div>
       )}
+
       {page !== "threeD" && <Scene3D />}
       <Navigation currentPath={currentPath} onNavigate={handleNavigate} />
+
       <AnimatePresence mode="wait">
         <motion.div
           key={currentPath}
@@ -247,6 +177,7 @@ function App() {
           {renderPage()}
         </motion.div>
       </AnimatePresence>
+
       <footer
         className="py-8 px-8 border-t relative"
         style={{ borderColor: "var(--app-border)" }}
@@ -264,4 +195,5 @@ function App() {
     </div>
   );
 }
+
 export { App as default };
