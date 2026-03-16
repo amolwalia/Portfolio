@@ -89,16 +89,16 @@ function AboutPage() {
   ];
 
   return (
-    <section className="min-h-screen py-32 px-8 relative">
+    <section className="min-h-screen py-24 md:py-32 px-4 sm:px-6 md:px-8 relative">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="mb-20"
+          className="mb-14 md:mb-20"
         >
           <h1
-            className="text-5xl md:text-7xl mb-6 uppercase tracking-wider"
+            className="text-4xl sm:text-5xl md:text-7xl mb-4 md:mb-6 uppercase tracking-wider"
             style={{
               fontFamily: "Akira Expanded, sans-serif",
               fontWeight: 800,
@@ -107,7 +107,7 @@ function AboutPage() {
             About Me
           </h1>
           <p
-            className="text-xl text-neutral-400 max-w-3xl"
+            className="text-base sm:text-lg md:text-xl text-neutral-400 max-w-3xl"
             style={{ fontFamily: "Montserrat, sans-serif", fontWeight: 300 }}
           >
             Product and visual designer based in Vancouver, BC, focused on
@@ -120,7 +120,7 @@ function AboutPage() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20"
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 mb-14 md:mb-20"
         >
           {stats.map((stat, index) => (
             <motion.div
@@ -128,11 +128,11 @@ function AboutPage() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.4, delay: 0.1 + index * 0.1 }}
-              className="text-center p-6 border border-neutral-800 rounded-lg"
+              className="text-center p-4 sm:p-5 md:p-6 border border-neutral-800 rounded-lg"
             >
               <stat.icon className="w-8 h-8 mx-auto mb-4 text-neutral-400" />
               <div
-                className="text-2xl md:text-3xl mb-2"
+                className="text-xl sm:text-2xl md:text-3xl mb-2"
                 style={{
                   fontFamily: "Akira Expanded, sans-serif",
                   fontWeight: 700,
@@ -150,14 +150,14 @@ function AboutPage() {
           ))}
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-16 mb-20">
+        <div className="grid md:grid-cols-2 gap-10 md:gap-16 mb-14 md:mb-20">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <h2
-              className="text-3xl mb-6 uppercase tracking-wide"
+              className="text-2xl md:text-3xl mb-5 md:mb-6 uppercase tracking-wide"
               style={{
                 fontFamily: "Akira Expanded, sans-serif",
                 fontWeight: 700,
@@ -166,7 +166,7 @@ function AboutPage() {
               My Story
             </h2>
             <div
-              className="space-y-4 text-neutral-400 leading-relaxed"
+              className="space-y-4 text-sm sm:text-base md:text-[1rem] text-neutral-400 leading-relaxed"
               style={{ fontFamily: "Montserrat, sans-serif", fontWeight: 300 }}
             >
               <p>
@@ -203,7 +203,7 @@ function AboutPage() {
             transition={{ duration: 0.6, delay: 0.3 }}
           >
             <h2
-              className="text-3xl mb-6 uppercase tracking-wide"
+              className="text-2xl md:text-3xl mb-5 md:mb-6 uppercase tracking-wide"
               style={{
                 fontFamily: "Akira Expanded, sans-serif",
                 fontWeight: 700,
@@ -211,14 +211,14 @@ function AboutPage() {
             >
               Skills
             </h2>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-2.5 md:gap-3">
               {skills.map((skill, index) => (
                 <motion.span
                   key={skill}
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.3, delay: 0.3 + index * 0.03 }}
-                  className="px-4 py-2 border border-neutral-700 rounded-full text-neutral-300"
+                  className="px-3 py-1.5 md:px-4 md:py-2 border border-neutral-700 rounded-full text-sm md:text-base text-neutral-300"
                   style={{ fontFamily: "Montserrat, sans-serif" }}
                 >
                   {skill}
@@ -232,10 +232,10 @@ function AboutPage() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mb-16"
+          className="mb-12 md:mb-16"
         >
           <h2
-            className="text-3xl mb-8 uppercase tracking-wide"
+            className="text-2xl md:text-3xl mb-6 md:mb-8 uppercase tracking-wide"
             style={{
               fontFamily: "Akira Expanded, sans-serif",
               fontWeight: 700,
@@ -243,14 +243,14 @@ function AboutPage() {
           >
             Project Experience
           </h2>
-          <div className="space-y-8">
+          <div className="space-y-6 md:space-y-8">
             {projectExperience.map((exp, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
-                className="border-l-2 border-neutral-800 pl-6 py-2"
+                className="border-l-2 border-neutral-800 pl-4 md:pl-6 py-2"
               >
                 <div
                   className="text-sm text-neutral-500 mb-2"

@@ -1539,6 +1539,41 @@ h6 {
   cursor: pointer;
 }
 
+@media (max-width: 640px) {
+  .work-index-shell {
+    padding: 7.5rem 1rem 3.5rem;
+  }
+
+  .work-index-header p {
+    margin-top: 1rem;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .work-grid {
+    margin-top: 2rem;
+    gap: 1rem;
+  }
+
+  .work-card-content {
+    padding: 1rem 1rem 1.25rem;
+  }
+
+  .work-card h2 {
+    font-size: 1.15rem;
+  }
+
+  .work-card-content p {
+    font-size: 0.98rem;
+    line-height: 1.55;
+  }
+
+  .work-card-link {
+    width: 100%;
+    padding: 0.8rem 1rem;
+  }
+}
+
 .case-study-shell {
   min-height: 100vh;
   padding: 9rem 2.5rem 6rem;
@@ -1840,6 +1875,57 @@ h6 {
   margin: 0;
   font-size: 1.8rem;
   font-family: "Akira Expanded", sans-serif;
+}
+
+@media (max-width: 640px) {
+  .case-study-shell {
+    padding: 7.5rem 1rem 4rem;
+    font-size: 1rem;
+  }
+
+  .case-meta-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .case-meta-item,
+  .case-summary-card,
+  .case-toc,
+  .case-callout,
+  .case-process-item,
+  .case-design-item,
+  .case-not-found {
+    padding: 0.95rem;
+  }
+
+  .case-process-item {
+    grid-template-columns: 1fr;
+  }
+
+  .case-process-number {
+    width: 48px;
+    height: 48px;
+    font-size: 0.95rem;
+  }
+
+  .case-toc a,
+  .case-paragraphs p,
+  .case-process-body p,
+  .case-design-item p,
+  .case-callout p,
+  .case-meta-item p {
+    font-size: 0.98rem;
+    line-height: 1.62;
+  }
+
+  .case-study-footer-nav {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .case-nav-link {
+    width: 100%;
+    text-align: center;
+  }
 }
 
 @media (min-width: 900px) {

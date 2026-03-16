@@ -94,6 +94,10 @@ function ThemeToggle() {
 
 function App() {
   const [currentPath, setCurrentPath] = useState(getPathFromLocation);
+  const [viewportSize, setViewportSize] = useState({
+    width: typeof window !== "undefined" ? window.innerWidth : 1440,
+    height: typeof window !== "undefined" ? window.innerHeight : 800,
+  });
   const { page, studySlug } = getRouteState(currentPath);
 
   useEffect(() => {
@@ -106,6 +110,18 @@ function App() {
     return () => window.removeEventListener("popstate", handlePopState);
   }, []);
 
+  useEffect(() => {
+    const handleResize = () =>
+      setViewportSize({
+        width: window.innerWidth || 1440,
+        height: window.innerHeight || 800,
+      });
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const handleNavigate = (path) => {
     const nextPath = normalizePath(path);
     if (typeof window === "undefined") return;
@@ -115,6 +131,12 @@ function App() {
     setCurrentPath(nextPath);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+
+  const isPhonePortrait =
+    viewportSize.width < 768 && viewportSize.height > viewportSize.width;
+  const navContentHeight = isPhonePortrait ? 132 : 72;
+  const navTopOffset = 24;
+  const pageTopInset = page === "home" ? 0 : navContentHeight + navTopOffset + 16;
 
   const renderPage = () => {
     switch (page) {
@@ -154,6 +176,7 @@ function App() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.5 }}
+          style={{ paddingTop: pageTopInset }}
         >
           {renderPage()}
         </motion.div>

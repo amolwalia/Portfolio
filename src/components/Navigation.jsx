@@ -34,6 +34,7 @@ function Navigation({ currentPath, onNavigate }) {
   const isHome = currentPath === "/";
   const viewportWidth = viewportSize.width;
   const viewportHeight = viewportSize.height;
+  const isPhonePortrait = viewportWidth < 768 && viewportHeight > viewportWidth;
   const maxScroll =
     typeof document !== "undefined"
       ? Math.max(0, document.documentElement.scrollHeight - viewportHeight)
@@ -42,15 +43,22 @@ function Navigation({ currentPath, onNavigate }) {
     1,
     Math.min(viewportHeight * 0.9, maxScroll || viewportHeight * 0.9),
   );
-  const minNavHeight = 72;
+  const minNavHeight = isPhonePortrait ? 132 : 72;
   const expandedLogoHeight = Math.max(
-    220,
-    Math.min(viewportHeight * 0.62, viewportWidth * 0.34, 560),
+    isPhonePortrait ? 160 : 220,
+    Math.min(
+      viewportHeight * (isPhonePortrait ? 0.28 : 0.62),
+      viewportWidth * (isPhonePortrait ? 0.52 : 0.34),
+      isPhonePortrait ? 280 : 560,
+    ),
   );
   const logoAspectRatio = 1.5;
   const collapsedLogoHeight = Math.max(
-    44,
-    Math.min(minNavHeight - 8, viewportWidth < 768 ? 52 : 60),
+    isPhonePortrait ? 44 : 44,
+    Math.min(
+      minNavHeight - (isPhonePortrait ? 56 : 8),
+      viewportWidth < 768 ? 52 : 60,
+    ),
   );
   const targetProgress = useTransform(
     scrollY,
@@ -70,7 +78,13 @@ function Navigation({ currentPath, onNavigate }) {
     [0, 1],
     isHome ? [viewportHeight, minNavHeight] : [minNavHeight, minNavHeight],
   );
-  const paddingY = useTransform(progress, [0, 1], isHome ? [28, 14] : [16, 16]);
+  const paddingY = useTransform(
+    progress,
+    [0, 1],
+    isHome
+      ? [isPhonePortrait ? 20 : 28, isPhonePortrait ? 12 : 14]
+      : [isPhonePortrait ? 12 : 16, isPhonePortrait ? 12 : 16],
+  );
   const logoHeight = useTransform(
     progress,
     [0, 1],
@@ -78,7 +92,10 @@ function Navigation({ currentPath, onNavigate }) {
       ? [expandedLogoHeight, collapsedLogoHeight]
       : [collapsedLogoHeight, collapsedLogoHeight],
   );
-  const logoWidth = useTransform(logoHeight, (value) => value * logoAspectRatio);
+  const logoWidth = useTransform(
+    logoHeight,
+    (value) => value * logoAspectRatio,
+  );
   const navItems = [
     { path: "/", label: "Home" },
     { path: "/work", label: "Works" },
@@ -101,16 +118,26 @@ function Navigation({ currentPath, onNavigate }) {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className="fixed top-6 left-0 right-0 z-50 px-8 flex justify-between items-center backdrop-blur-sm"
+      className={`fixed top-6 left-0 right-0 z-50 ${
+        isPhonePortrait
+          ? "px-4 flex flex-col items-center justify-center gap-3"
+          : "px-8 flex justify-between items-center"
+      }`}
       style={{
         backgroundColor: navBackground,
         height: heroHeight,
         paddingTop: paddingY,
         paddingBottom: paddingY,
+        backdropFilter: isHome ? "none" : "blur(8px)",
+        WebkitBackdropFilter: isHome ? "none" : "blur(8px)",
       }}
     >
       <motion.div
-        className="flex items-center justify-start pl-0 pr-6"
+        className={
+          isPhonePortrait
+            ? "flex items-center justify-center"
+            : "flex items-center justify-start pl-0 pr-6"
+        }
         style={{
           height: logoHeight,
           width: logoWidth,
@@ -137,7 +164,13 @@ function Navigation({ currentPath, onNavigate }) {
         </motion.div>
       </motion.div>
 
-      <div className="flex gap-8">
+      <div
+        className={
+          isPhonePortrait
+            ? "flex w-full max-w-[24rem] items-center justify-between px-5"
+            : "flex gap-8"
+        }
+      >
         {navItems.map((item) => (
           <motion.a
             key={item.path}
