@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { useTheme } from "next-themes@0.4.6";
 import { Scene3D } from "./components/Scene3D";
 import { Navigation } from "./components/Navigation";
 import { HomePage } from "./components/pages/HomePage";
@@ -47,50 +46,6 @@ function getRouteState(pathname) {
   }
 
   return { page: "home", studySlug: null };
-}
-
-function ThemeToggle() {
-  const { resolvedTheme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null;
-
-  const isDark = resolvedTheme === "dark";
-
-  return (
-    <button
-      type="button"
-      className="theme-toggle"
-      aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
-      onClick={() => setTheme(isDark ? "light" : "dark")}
-    >
-      <span className={`theme-toggle-icon ${isDark ? "is-active" : ""}`}>
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.6"
-        >
-          <path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a6.2 6.2 0 0 0 9.8 9.8Z" />
-        </svg>
-      </span>
-      <span className={`theme-toggle-icon ${!isDark ? "is-active" : ""}`}>
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.6"
-        >
-          <circle cx="12" cy="12" r="4.5" />
-          <path d="M12 3v2.2M12 18.8V21M4.4 4.4l1.6 1.6M18 18l1.6 1.6M3 12h2.2M18.8 12H21M4.4 19.6 6 18M18 6l1.6-1.6" />
-        </svg>
-      </span>
-    </button>
-  );
 }
 
 function App() {
@@ -147,7 +102,7 @@ function App() {
 
   return (
     <div
-      className="min-h-screen overflow-x-hidden"
+      className="dark min-h-screen overflow-x-hidden"
       style={{
         fontFamily: "Montserrat, sans-serif",
         backgroundColor: "var(--app-bg)",
@@ -181,7 +136,6 @@ function App() {
           <p style={{ fontFamily: "Montserrat, sans-serif" }}>
             &copy; 2026 Amol Walia. All rights reserved.
           </p>
-          <ThemeToggle />
           <p style={{ fontFamily: "Montserrat, sans-serif" }}>
             Designed &amp; Developed with care
           </p>
