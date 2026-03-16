@@ -77,10 +77,11 @@ function App() {
     viewportSize.width < 768 && viewportSize.height > viewportSize.width;
   const navContentHeight = isPhonePortrait ? 132 : 72;
   const navTopOffset = 24;
-  const pageTopInset = page === "home" ? 0 : navContentHeight + navTopOffset + 16;
+  const pageTopInset =
+    page === "home" ? 0 : navContentHeight + navTopOffset + 16;
   const footerPaddingClass = isPhonePortrait ? "py-5 px-4" : "py-8 px-8";
   const footerLayoutClass = isPhonePortrait
-    ? "max-w-6xl mx-auto flex flex-col justify-between items-center text-neutral-500 text-[10px] gap-2.5"
+    ? "max-w-6xl mx-auto flex flex-col justify-between items-center text-neutral-500 text-[6px] gap-2"
     : "max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center text-neutral-500 text-sm gap-4";
 
   const renderPage = () => {
