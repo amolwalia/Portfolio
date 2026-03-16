@@ -1,23 +1,13 @@
-import { useEffect, useState } from "react";
 import { motion } from "motion/react";
+import { useViewportSize } from "../../hooks/useViewportSize.js";
+
+const PHONE_PORTRAIT_HERO_FONT_SIZE = "3rem";
 
 function HomePage({ onNavigate }) {
-  const [viewportSize, setViewportSize] = useState({
-    width: typeof window !== "undefined" ? window.innerWidth : 1440,
-    height: typeof window !== "undefined" ? window.innerHeight : 800,
-  });
-  useEffect(() => {
-    const handleResize = () =>
-      setViewportSize({
-        width: window.innerWidth || 1440,
-        height: window.innerHeight || 800,
-      });
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  const viewportSize = useViewportSize();
   const isPhonePortrait =
     viewportSize.width < 768 && viewportSize.height > viewportSize.width;
+
   const heroSpacer = Math.round(
     isPhonePortrait
       ? Math.max(viewportSize.height * 0.92, viewportSize.height + 24)
@@ -45,7 +35,7 @@ function HomePage({ onNavigate }) {
             style={{
               fontFamily: "Akira Expanded, sans-serif",
               fontWeight: 800,
-              fontSize: isPhonePortrait ? "3rem" : undefined,
+              fontSize: isPhonePortrait ? PHONE_PORTRAIT_HERO_FONT_SIZE : undefined,
             }}
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -77,7 +67,11 @@ function HomePage({ onNavigate }) {
             transition={{ duration: 0.8, delay: 0.5 }}
             className={`flex gap-3 md:gap-4 ${
               isPhonePortrait ? "flex-col" : "flex-row flex-wrap"
-            } ${isPhonePortrait ? "pt-4 pb-6 mb-8" : "pt-6 pb-8 mb-10 md:pt-8 md:pb-10 md:mb-12"}`}
+            } ${
+              isPhonePortrait
+                ? "pt-4 pb-6 mb-8"
+                : "pt-6 pb-8 mb-10 md:pt-8 md:pb-10 md:mb-12"
+            }`}
           >
             <motion.a
               className={`border border-white rounded-full hover:bg-white hover:text-black transition-colors duration-300 ${

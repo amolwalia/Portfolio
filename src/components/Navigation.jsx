@@ -1,35 +1,26 @@
-import { useEffect, useState } from "react";
 import {
   motion,
   useMotionTemplate,
   useScroll,
   useTransform,
 } from "motion/react";
-("use client");
-
 import Index from "./scene";
+import { useViewportSize } from "../hooks/useViewportSize.js";
+
+const NAV_ITEMS = [
+  { path: "/", label: "Home" },
+  { path: "/work", label: "Works" },
+  { path: "/about", label: "About" },
+  { path: "/contact", label: "Contact" },
+];
 
 function shouldHandleClientNavigation(event) {
   return !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey;
 }
 
 function Navigation({ currentPath, onNavigate }) {
-  const [viewportSize, setViewportSize] = useState({
-    width: typeof window !== "undefined" ? window.innerWidth : 1440,
-    height: typeof window !== "undefined" ? window.innerHeight : 800,
-  });
+  const viewportSize = useViewportSize();
   const { scrollY } = useScroll();
-
-  useEffect(() => {
-    const handleResize = () =>
-      setViewportSize({
-        width: window.innerWidth || 1440,
-        height: window.innerHeight || 800,
-      });
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
   const isHome = currentPath === "/";
   const viewportWidth = viewportSize.width;
@@ -43,6 +34,7 @@ function Navigation({ currentPath, onNavigate }) {
     1,
     Math.min(viewportHeight * 0.9, maxScroll || viewportHeight * 0.9),
   );
+
   const minNavHeight = isPhonePortrait ? 132 : 72;
   const expandedLogoHeight = Math.max(
     isPhonePortrait ? 160 : 220,
@@ -52,9 +44,10 @@ function Navigation({ currentPath, onNavigate }) {
       isPhonePortrait ? 280 : 560,
     ),
   );
+
   const logoAspectRatio = 1.5;
   const collapsedLogoHeight = Math.max(
-    isPhonePortrait ? 44 : 44,
+    44,
     Math.min(
       minNavHeight - (isPhonePortrait ? 56 : 8),
       viewportWidth < 768 ? 52 : 60,
@@ -73,11 +66,13 @@ function Navigation({ currentPath, onNavigate }) {
     isHome ? [0.1, 0] : [0.25, 0.25],
   );
   const navBackground = useMotionTemplate`rgba(0, 0, 0, ${navOpacity})`;
+
   const heroHeight = useTransform(
     progress,
     [0, 1],
     isHome ? [viewportHeight, minNavHeight] : [minNavHeight, minNavHeight],
   );
+
   const paddingY = useTransform(
     progress,
     [0, 1],
@@ -96,12 +91,6 @@ function Navigation({ currentPath, onNavigate }) {
     logoHeight,
     (value) => value * logoAspectRatio,
   );
-  const navItems = [
-    { path: "/", label: "Home" },
-    { path: "/work", label: "Works" },
-    { path: "/about", label: "About" },
-    { path: "/contact", label: "Contact" },
-  ];
 
   const isActivePath = (itemPath) =>
     currentPath === itemPath ||
@@ -171,7 +160,7 @@ function Navigation({ currentPath, onNavigate }) {
             : "flex gap-8"
         }
       >
-        {navItems.map((item) => (
+        {NAV_ITEMS.map((item) => (
           <motion.a
             key={item.path}
             href={item.path}

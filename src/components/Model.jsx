@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import {
   Center,
   Clone,
@@ -12,7 +11,6 @@ import { useTheme } from "next-themes@0.4.6";
 export default function Model() {
   const { scene } = useGLTF("/AW-glass.glb");
   const { resolvedTheme } = useTheme();
-  const group = useRef(null);
   const materialProps = {
     thickness: 0.2,
     roughness: 0,
@@ -38,11 +36,8 @@ export default function Model() {
         global={false}
         cursor
         speed={1}
-        // polar={[-0.4, 0.4]}
-        // azimuth={[-0.8, 0.8]}
       >
         <group
-          ref={group}
           rotation={[1.5, 0.07, 0.1]}
           position={[0, 0, 0]}
           scale={0.15}

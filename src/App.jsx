@@ -9,6 +9,7 @@ import { ContactPage } from "./components/pages/ContactPage";
 import { Work } from "./components/pages/Work.tsx";
 import { CaseStudy } from "./components/pages/CaseStudy.tsx";
 import { caseStudiesBySlug, caseStudies } from "./data/caseStudies.ts";
+import { useViewportSize } from "./hooks/useViewportSize.js";
 
 const BASE_ROUTES = {
   home: "/",
@@ -94,10 +95,7 @@ function ThemeToggle() {
 
 function App() {
   const [currentPath, setCurrentPath] = useState(getPathFromLocation);
-  const [viewportSize, setViewportSize] = useState({
-    width: typeof window !== "undefined" ? window.innerWidth : 1440,
-    height: typeof window !== "undefined" ? window.innerHeight : 800,
-  });
+  const viewportSize = useViewportSize();
   const { page, studySlug } = getRouteState(currentPath);
 
   useEffect(() => {
@@ -108,18 +106,6 @@ function App() {
 
     window.addEventListener("popstate", handlePopState);
     return () => window.removeEventListener("popstate", handlePopState);
-  }, []);
-
-  useEffect(() => {
-    const handleResize = () =>
-      setViewportSize({
-        width: window.innerWidth || 1440,
-        height: window.innerHeight || 800,
-      });
-
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const handleNavigate = (path) => {
@@ -144,8 +130,6 @@ function App() {
         return <HomePage onNavigate={handleNavigate} />;
       case "work":
         return <Work studies={caseStudies} onNavigate={handleNavigate} />;
-      case "threeD":
-        return <ThreeDPage />;
       case "about":
         return <AboutPage />;
       case "contact":
@@ -166,7 +150,7 @@ function App() {
         color: "var(--app-text)",
       }}
     >
-      {page !== "threeD" && <Scene3D />}
+      <Scene3D />
       <Navigation currentPath={currentPath} onNavigate={handleNavigate} />
 
       <AnimatePresence mode="wait">
