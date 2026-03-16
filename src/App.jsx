@@ -13,7 +13,6 @@ import { caseStudiesBySlug, caseStudies } from "./data/caseStudies.ts";
 const BASE_ROUTES = {
   home: "/",
   work: "/work",
-  threeD: "/3d",
   about: "/about",
   contact: "/contact",
 };

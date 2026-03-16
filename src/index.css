@@ -1277,40 +1277,6 @@ h6 {
   animation: scene-gradient-drift 18s ease-in-out infinite;
 }
 
-.scene-glow {
-  position: absolute;
-  inset: -20%;
-  opacity: var(--scene-glow-opacity);
-  mix-blend-mode: screen;
-  background: conic-gradient(
-    from 180deg,
-    rgba(255, 255, 255, 0.06),
-    rgba(0, 0, 0, 0) 35%,
-    rgba(255, 255, 255, 0.08) 55%,
-    rgba(0, 0, 0, 0) 75%,
-    rgba(255, 255, 255, 0.05)
-  );
-  animation: scene-glow-rotate 36s linear infinite;
-}
-
-.scene-noise {
-  position: absolute;
-  inset: -10%;
-  opacity: var(--scene-noise-opacity);
-  mix-blend-mode: soft-light;
-  background-image:
-    repeating-linear-gradient(
-      0deg,
-      rgba(255, 255, 255, 0.03) 0 1px,
-      transparent 1px 2px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0.02) 0 1px,
-      transparent 1px 2px
-    );
-}
-
 @keyframes scene-gradient-drift {
   0% {
     transform: translate3d(0, 0, 0) scale(1);
