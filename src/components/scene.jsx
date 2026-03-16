@@ -17,7 +17,7 @@ export default function Index() {
       <pointLight intensity={1.4} position={[2, 2, 2]} />
       <Model />
       <directionalLight intensity={1.8} position={[0, 2, 3]} />
-      <Environment files="/qwantani_dawn_puresky_4k.exr" />
+      <Environment files="/qwantani_dawn_puresky_2k.hdr" />
     </Canvas>
   );
 }
