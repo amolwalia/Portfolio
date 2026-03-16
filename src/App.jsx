@@ -94,7 +94,6 @@ function ThemeToggle() {
 
 function App() {
   const [currentPath, setCurrentPath] = useState(getPathFromLocation);
-  const [showDevBanner, setShowDevBanner] = useState(true);
   const { page, studySlug } = getRouteState(currentPath);
 
   useEffect(() => {
@@ -145,23 +144,6 @@ function App() {
         color: "var(--app-text)",
       }}
     >
-      {showDevBanner && (
-        <div
-          className="fixed top-0 left-0 right-0 h-7 flex items-center justify-center text-[10px] font-semibold tracking-[0.12em] group cursor-pointer"
-          onClick={() => setShowDevBanner(false)}
-          title="Tap to close"
-          style={{
-            zIndex: 99999,
-            backgroundColor: "rgba(18,18,18,0.92)",
-            color: "#ffffff",
-            backdropFilter: "blur(8px)",
-            borderBottom: "1px solid rgba(255,255,255,0.15)",
-          }}
-        >
-          Website under development and testing
-        </div>
-      )}
-
       {page !== "threeD" && <Scene3D />}
       <Navigation currentPath={currentPath} onNavigate={handleNavigate} />
 

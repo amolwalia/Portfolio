@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
-import { motion } from "motion/react";
+import {
+  motion,
+  useMotionTemplate,
+  useScroll,
+  useTransform,
+} from "motion/react";
 ("use client");
 
 import Index from "./scene";
@@ -9,26 +14,26 @@ function shouldHandleClientNavigation(event) {
 }
 
 function Navigation({ currentPath, onNavigate }) {
-  const [scrollY, setScrollY] = useState(0);
-  const [viewportHeight, setViewportHeight] = useState(
-    typeof window !== "undefined" ? window.innerHeight : 800,
-  );
+  const [viewportSize, setViewportSize] = useState({
+    width: typeof window !== "undefined" ? window.innerWidth : 1440,
+    height: typeof window !== "undefined" ? window.innerHeight : 800,
+  });
+  const { scrollY } = useScroll();
 
   useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY || 0);
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const handleResize = () => setViewportHeight(window.innerHeight || 800);
+    const handleResize = () =>
+      setViewportSize({
+        width: window.innerWidth || 1440,
+        height: window.innerHeight || 800,
+      });
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const isHome = currentPath === "/";
+  const viewportWidth = viewportSize.width;
+  const viewportHeight = viewportSize.height;
   const maxScroll =
     typeof document !== "undefined"
       ? Math.max(0, document.documentElement.scrollHeight - viewportHeight)
@@ -37,20 +42,43 @@ function Navigation({ currentPath, onNavigate }) {
     1,
     Math.min(viewportHeight * 0.9, maxScroll || viewportHeight * 0.9),
   );
-  const progress = isHome ? Math.min(scrollY / collapseDistance, 1) : 1;
-  const navOpacity = isHome ? 0.1 - progress * 1 : 0.25;
-  const logoScale = isHome ? Math.max(0.45, 1 - progress * 0.55) : 0.1;
   const minNavHeight = 72;
-  const heroHeight = isHome
-    ? Math.max(
-        minNavHeight,
-        viewportHeight - progress * (viewportHeight - minNavHeight),
-      )
-    : minNavHeight;
-  const paddingY = isHome ? 28 - progress * 14 : 16;
-  const isCollapsed = !isHome || progress >= 1;
-  const logoHeight = isCollapsed ? 280 : null;
-  const logoOffsetY = isCollapsed ? -40 : 0;
+  const expandedLogoHeight = Math.max(
+    220,
+    Math.min(viewportHeight * 0.62, viewportWidth * 0.34, 560),
+  );
+  const logoAspectRatio = 1.5;
+  const collapsedLogoHeight = Math.max(
+    44,
+    Math.min(minNavHeight - 8, viewportWidth < 768 ? 52 : 60),
+  );
+  const targetProgress = useTransform(
+    scrollY,
+    [0, collapseDistance],
+    isHome ? [0, 1] : [1, 1],
+    { clamp: true },
+  );
+  const progress = targetProgress;
+  const navOpacity = useTransform(
+    progress,
+    [0, 1],
+    isHome ? [0.1, 0] : [0.25, 0.25],
+  );
+  const navBackground = useMotionTemplate`rgba(0, 0, 0, ${navOpacity})`;
+  const heroHeight = useTransform(
+    progress,
+    [0, 1],
+    isHome ? [viewportHeight, minNavHeight] : [minNavHeight, minNavHeight],
+  );
+  const paddingY = useTransform(progress, [0, 1], isHome ? [28, 14] : [16, 16]);
+  const logoHeight = useTransform(
+    progress,
+    [0, 1],
+    isHome
+      ? [expandedLogoHeight, collapsedLogoHeight]
+      : [collapsedLogoHeight, collapsedLogoHeight],
+  );
+  const logoWidth = useTransform(logoHeight, (value) => value * logoAspectRatio);
   const navItems = [
     { path: "/", label: "Home" },
     { path: "/work", label: "Works" },
@@ -75,23 +103,22 @@ function Navigation({ currentPath, onNavigate }) {
       transition={{ duration: 0.6 }}
       className="fixed top-6 left-0 right-0 z-50 px-8 flex justify-between items-center backdrop-blur-sm"
       style={{
-        backgroundColor: `rgba(0, 0, 0, ${navOpacity})`,
-        height: `${heroHeight}px`,
-        paddingTop: `${paddingY}px`,
-        paddingBottom: `${paddingY}px`,
+        backgroundColor: navBackground,
+        height: heroHeight,
+        paddingTop: paddingY,
+        paddingBottom: paddingY,
       }}
     >
       <motion.div
         className="flex items-center justify-start pl-0 pr-6"
-        whileHover={{ scale: logoScale + 0.05 }}
-        animate={{ scale: logoScale, y: logoOffsetY }}
-        transition={{ type: "tween", duration: 0.35, ease: "easeOut" }}
         style={{
-          transformOrigin: "left center",
-          alignSelf: isCollapsed ? "flex-start" : "center",
+          height: logoHeight,
+          width: logoWidth,
+          alignSelf: "center",
+          flex: "0 0 auto",
         }}
       >
-        <div
+        <motion.div
           className="drop-shadow-[0_8px_22px_rgba(0,0,0,0.4)]"
           onClick={(event) => {
             event.preventDefault();
@@ -101,13 +128,13 @@ function Navigation({ currentPath, onNavigate }) {
             event.stopPropagation();
           }}
           style={{
-            height: `${logoHeight ?? 800}px`,
-            width: `${(logoHeight ?? 700) * 1.5}px`,
+            height: "100%",
+            width: "100%",
             pointerEvents: "auto",
           }}
         >
           <Index />
-        </div>
+        </motion.div>
       </motion.div>
 
       <div className="flex gap-8">
