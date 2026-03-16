@@ -26,7 +26,7 @@ function HomePage({ onNavigate }) {
 
   return (
     <section
-      className="min-h-screen px-4 sm:px-6 md:px-8 relative pb-16 md:pb-24"
+      className="min-h-screen px-4 sm:px-6 md:px-8 relative pb-24 md:pb-32"
       style={{ paddingTop: `${heroSpacer}px` }}
     >
       <div className="max-w-6xl w-full mx-auto">
@@ -75,15 +75,15 @@ function HomePage({ onNavigate }) {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className={`flex flex-col sm:flex-row gap-3 sm:gap-4 ${
-              isPhonePortrait ? "pt-4" : "pt-6 md:pt-8"
-            }`}
+            className={`flex gap-3 md:gap-4 ${
+              isPhonePortrait ? "flex-col" : "flex-row flex-wrap"
+            } ${isPhonePortrait ? "pt-4 pb-6 mb-8" : "pt-6 pb-8 mb-10 md:pt-8 md:pb-10 md:mb-12"}`}
           >
             <motion.a
-              className={`w-full sm:w-auto border border-white rounded-full hover:bg-white hover:text-black transition-colors duration-300 ${
+              className={`border border-white rounded-full hover:bg-white hover:text-black transition-colors duration-300 ${
                 isPhonePortrait
-                  ? "px-5 py-3 text-[0.9rem]"
-                  : "px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base"
+                  ? "w-full px-5 py-3 text-[0.9rem]"
+                  : "w-auto px-8 py-4 text-sm sm:text-base"
               }`}
               href="/Amol_Walia_Resume.pdf"
               download="Amol_Walia_Resume.pdf"
@@ -100,10 +100,10 @@ function HomePage({ onNavigate }) {
               DOWNLOAD RESUME
             </motion.a>
             <motion.button
-              className={`w-full sm:w-auto bg-white text-black rounded-full hover:bg-neutral-200 transition-colors duration-300 ${
+              className={`bg-white text-black rounded-full hover:bg-neutral-200 transition-colors duration-300 ${
                 isPhonePortrait
-                  ? "px-5 py-3 text-[0.9rem]"
-                  : "px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base"
+                  ? "w-full px-5 py-3 text-[0.9rem]"
+                  : "w-auto px-8 py-4 text-sm sm:text-base"
               }`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
