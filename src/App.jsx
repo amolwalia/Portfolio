@@ -123,6 +123,10 @@ function App() {
   const navContentHeight = isPhonePortrait ? 132 : 72;
   const navTopOffset = 24;
   const pageTopInset = page === "home" ? 0 : navContentHeight + navTopOffset + 16;
+  const footerPaddingClass = isPhonePortrait ? "py-5 px-4" : "py-8 px-8";
+  const footerLayoutClass = isPhonePortrait
+    ? "max-w-6xl mx-auto flex flex-col justify-between items-center text-neutral-500 text-[10px] gap-2.5"
+    : "max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center text-neutral-500 text-sm gap-4";
 
   const renderPage = () => {
     switch (page) {
@@ -160,17 +164,20 @@ function App() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.5 }}
-          style={{ paddingTop: pageTopInset }}
+          style={{
+            paddingTop: pageTopInset,
+            paddingBottom: isPhonePortrait ? 32 : 48,
+          }}
         >
           {renderPage()}
         </motion.div>
       </AnimatePresence>
 
       <footer
-        className="py-8 px-8 border-t relative"
+        className={`${footerPaddingClass} border-t relative`}
         style={{ borderColor: "var(--app-border)" }}
       >
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center text-neutral-500 text-sm gap-4">
+        <div className={footerLayoutClass}>
           <p style={{ fontFamily: "Montserrat, sans-serif" }}>
             &copy; 2026 Amol Walia. All rights reserved.
           </p>
