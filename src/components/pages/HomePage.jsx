@@ -79,22 +79,26 @@ function HomePage({ onNavigate }) {
               isPhonePortrait ? "pt-4" : "pt-6 md:pt-8"
             }`}
           >
-            <motion.button
+            <motion.a
               className={`w-full sm:w-auto border border-white rounded-full hover:bg-white hover:text-black transition-colors duration-300 ${
                 isPhonePortrait
                   ? "px-5 py-3 text-[0.9rem]"
                   : "px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base"
               }`}
+              href="/Amol_Walia_Resume.pdf"
+              download="Amol_Walia_Resume.pdf"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               style={{
                 fontFamily: "Montserrat, sans-serif",
                 fontWeight: 500,
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
               }}
-              onClick={() => onNavigate?.("/work")}
             >
-              VIEW WORK
-            </motion.button>
+              DOWNLOAD RESUME
+            </motion.a>
             <motion.button
               className={`w-full sm:w-auto bg-white text-black rounded-full hover:bg-neutral-200 transition-colors duration-300 ${
                 isPhonePortrait
