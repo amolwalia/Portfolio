@@ -13,10 +13,10 @@ export default function Index() {
         touchAction: "none",
       }}
     >
-      <ambientLight intensity={0.8} />
+      <ambientLight intensity={0.1} />
       <pointLight intensity={1.4} position={[2, 2, 2]} />
       <Model />
-      <directionalLight intensity={1.8} position={[0, 2, 3]} />
+      <directionalLight intensity={2} position={[0, 2, 3]} />
       <Environment files="/qwantani_dawn_puresky_2k.hdr" />
     </Canvas>
   );
