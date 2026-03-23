@@ -4,7 +4,7 @@ import {
   useScroll,
   useTransform,
 } from "motion/react";
-import Index from "./scene";
+import Scene from "./scene";
 import { useViewportSize } from "../hooks/useViewportSize.js";
 
 const NAV_ITEMS = [
@@ -14,27 +14,33 @@ const NAV_ITEMS = [
   { path: "/contact", label: "Contact" },
 ];
 
+const LOGO_ASPECT_RATIO = 1.5;
+
 function shouldHandleClientNavigation(event) {
   return !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey;
 }
 
+function isWorkDetailRoute(pathname) {
+  return pathname.startsWith("/work/");
+}
+
 function Navigation({ currentPath, onNavigate }) {
-  const viewportSize = useViewportSize();
+  const { width: viewportWidth, height: viewportHeight } = useViewportSize();
   const { scrollY } = useScroll();
 
   const isHome = currentPath === "/";
-  const viewportWidth = viewportSize.width;
-  const viewportHeight = viewportSize.height;
   const isPhonePortrait = viewportWidth < 768 && viewportHeight > viewportWidth;
-  const maxScroll =
+  const documentHeight =
     typeof document !== "undefined"
-      ? Math.max(0, document.documentElement.scrollHeight - viewportHeight)
+      ? document.documentElement.scrollHeight
       : viewportHeight;
+  const maxScroll = Math.max(0, documentHeight - viewportHeight);
   const collapseDistance = Math.max(
     1,
     Math.min(viewportHeight * 0.9, maxScroll || viewportHeight * 0.9),
   );
 
+  // On the home page, the nav doubles as a hero area and collapses as the user scrolls.
   const minNavHeight = isPhonePortrait ? 132 : 72;
   const expandedLogoHeight = Math.max(
     isPhonePortrait ? 160 : 220,
@@ -45,7 +51,6 @@ function Navigation({ currentPath, onNavigate }) {
     ),
   );
 
-  const logoAspectRatio = 1.5;
   const collapsedLogoHeight = Math.max(
     44,
     Math.min(
@@ -53,6 +58,7 @@ function Navigation({ currentPath, onNavigate }) {
       viewportWidth < 768 ? 52 : 60,
     ),
   );
+
   const targetProgress = useTransform(
     scrollY,
     [0, collapseDistance],
@@ -87,17 +93,18 @@ function Navigation({ currentPath, onNavigate }) {
       ? [expandedLogoHeight, collapsedLogoHeight]
       : [collapsedLogoHeight, collapsedLogoHeight],
   );
-  const logoWidth = useTransform(
-    logoHeight,
-    (value) => value * logoAspectRatio,
-  );
+  const logoWidth = useTransform(logoHeight, (value) => value * LOGO_ASPECT_RATIO);
 
   const isActivePath = (itemPath) =>
     currentPath === itemPath ||
-    (itemPath === "/work" && currentPath.startsWith("/work/"));
+    (itemPath === "/work" && isWorkDetailRoute(currentPath));
 
   const handleLinkClick = (event, path) => {
-    if (!shouldHandleClientNavigation(event)) return;
+    // Let the browser handle modified clicks like cmd+click or ctrl+click.
+    if (!shouldHandleClientNavigation(event)) {
+      return;
+    }
+
     event.preventDefault();
     onNavigate(path);
   };
@@ -136,6 +143,7 @@ function Navigation({ currentPath, onNavigate }) {
       >
         <motion.div
           className="drop-shadow-[0_8px_22px_rgba(0,0,0,0.4)]"
+          // Keep the embedded scene interactive without bubbling into parent nav handlers.
           onClick={(event) => {
             event.preventDefault();
             event.stopPropagation();
@@ -149,7 +157,7 @@ function Navigation({ currentPath, onNavigate }) {
             pointerEvents: "auto",
           }}
         >
-          <Index />
+          <Scene />
         </motion.div>
       </motion.div>
 
