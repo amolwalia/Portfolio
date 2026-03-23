@@ -11,20 +11,48 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 
 const HINT_VISIBLE_MS = 1500;
+const MODEL_PATH = "/AW-glass.glb";
+const HINT_IMAGE_PATH = "/3dhint.png";
+
+const GLASS_MATERIAL_PROPS = {
+  thickness: 1,
+  roughness: 0.1,
+  transmission: 1,
+  ior: 1.14,
+  chromaticAberration: 0.04,
+  backside: true,
+};
+
+const MODEL_TRANSFORM = {
+  rotation: [1.5, 0.07, 0.1],
+  position: [0, 0, 0],
+  scale: 0.15,
+};
+
+const HTML_OVERLAY_STYLE = {
+  pointerEvents: "none",
+};
+
+const HINT_WRAPPER_STYLE = {
+  width: "min(240px, 42vw)",
+  filter:
+    "drop-shadow(0 12px 18px rgba(0, 0, 0, 5)) drop-shadow(0 24px 40px rgba(0, 0, 0, 5))",
+};
+
+const HINT_IMAGE_STYLE = {
+  display: "block",
+  width: "100%",
+  height: "auto",
+  userSelect: "none",
+  WebkitUserDrag: "none",
+};
 
 export default function Model() {
-  const { scene } = useGLTF("/AW-glass.glb");
+  const { scene } = useGLTF(MODEL_PATH);
   const [showHint, setShowHint] = useState(true);
-  const materialProps = {
-    thickness: 1,
-    roughness: 0.1,
-    transmission: 1,
-    ior: 1.14,
-    chromaticAberration: 0.04,
-    backside: true,
-  };
 
   useEffect(() => {
+    // Show the drag hint briefly on first render, then fade it out.
     const timeoutId = window.setTimeout(() => {
       setShowHint(false);
     }, HINT_VISIBLE_MS);
@@ -34,6 +62,7 @@ export default function Model() {
 
   return (
     <group>
+      {/* Place the title behind the model so the glass object remains the focal point. */}
       <Text
         font="/AkiraExpanded.otf"
         position={[0, 0, -0.42]}
@@ -44,12 +73,14 @@ export default function Model() {
       >
         Amol Walia
       </Text>
+
+      {/* Use an HTML overlay so the interaction hint stays crisp and easy to read. */}
       <Html
         position={[0, 0.1, 0.2]}
         center
         transform={false}
         sprite
-        style={{ pointerEvents: "none" }}
+        style={HTML_OVERLAY_STYLE}
       >
         <AnimatePresence>
           {showHint ? (
@@ -58,33 +89,25 @@ export default function Model() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.96 }}
               transition={{ duration: 0.35, ease: "easeOut" }}
-              style={{
-                width: "min(240px, 42vw)",
-                filter:
-                  "drop-shadow(0 12px 18px rgba(0, 0, 0, 5)) drop-shadow(0 24px 40px rgba(0, 0, 0, 5))",
-              }}
+              style={HINT_WRAPPER_STYLE}
             >
               <img
-                src="/3dhint.png"
+                src={HINT_IMAGE_PATH}
                 alt="Drag to interact with the 3D model"
-                style={{
-                  display: "block",
-                  width: "100%",
-                  height: "auto",
-                  userSelect: "none",
-                  WebkitUserDrag: "none",
-                }}
+                style={HINT_IMAGE_STYLE}
               />
             </motion.div>
           ) : null}
         </AnimatePresence>
       </Html>
+
+      {/* PresentationControls provides the drag-to-rotate interaction. */}
       <PresentationControls global={false} cursor speed={1}>
-        <group rotation={[1.5, 0.07, 0.1]} position={[0, 0, 0]} scale={0.15}>
+        <group {...MODEL_TRANSFORM}>
           <Center>
             <Clone
               object={scene}
-              inject={<MeshTransmissionMaterial {...materialProps} />}
+              inject={<MeshTransmissionMaterial {...GLASS_MATERIAL_PROPS} />}
             />
           </Center>
         </group>
@@ -93,4 +116,4 @@ export default function Model() {
   );
 }
 
-useGLTF.preload("/AW-glass.glb");
+useGLTF.preload(MODEL_PATH);
