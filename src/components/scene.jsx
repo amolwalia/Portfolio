@@ -14,6 +14,8 @@ const CANVAS_GL_CONFIG = {
 
 const CANVAS_STYLE = {
   background: "transparent",
+  width: "100%",
+  height: "100%",
   pointerEvents: "auto",
   touchAction: "none",
 };

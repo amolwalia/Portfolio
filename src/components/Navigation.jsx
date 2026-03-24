@@ -93,7 +93,10 @@ function Navigation({ currentPath, onNavigate }) {
       ? [expandedLogoHeight, collapsedLogoHeight]
       : [collapsedLogoHeight, collapsedLogoHeight],
   );
-  const logoWidth = useTransform(logoHeight, (value) => value * LOGO_ASPECT_RATIO);
+  const logoWidth = useTransform(
+    logoHeight,
+    (value) => value * LOGO_ASPECT_RATIO,
+  );
 
   const isActivePath = (itemPath) =>
     currentPath === itemPath ||
@@ -131,14 +134,11 @@ function Navigation({ currentPath, onNavigate }) {
       <motion.div
         className={
           isPhonePortrait
-            ? "flex items-center justify-center"
-            : "flex items-center justify-start pl-0 pr-6"
+            ? "flex w-full items-center justify-center"
+            : "flex min-w-0 flex-1 items-center justify-start pl-0 pr-6"
         }
         style={{
-          height: logoHeight,
-          width: logoWidth,
           alignSelf: "center",
-          flex: "0 0 auto",
         }}
       >
         <motion.div
@@ -152,9 +152,11 @@ function Navigation({ currentPath, onNavigate }) {
             event.stopPropagation();
           }}
           style={{
-            height: "100%",
-            width: "100%",
+            height: logoHeight,
+            width: logoWidth,
+            maxWidth: "100%",
             pointerEvents: "auto",
+            flex: "0 0 auto",
           }}
         >
           <Scene />
@@ -165,7 +167,7 @@ function Navigation({ currentPath, onNavigate }) {
         className={
           isPhonePortrait
             ? "flex w-full max-w-[24rem] items-center justify-between px-5"
-            : "flex gap-8"
+            : "flex shrink-0 gap-8"
         }
       >
         {NAV_ITEMS.map((item) => (
