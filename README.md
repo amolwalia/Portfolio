@@ -1,4 +1,4 @@
-# Amol Walia Portfolio
+# Amol Walia'S Portfolio
 
 A React and Vite portfolio for Amol Walia, focused on visual design, digital marketing, case studies, photography, print work, and an interactive 3D brand experience.
 
