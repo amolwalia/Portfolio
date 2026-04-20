@@ -117,10 +117,8 @@ function Navigation({ currentPath, onNavigate }) {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className={`fixed top-6 left-0 right-0 z-50 ${
-        isPhonePortrait
-          ? "px-4 flex flex-col items-center justify-center gap-3"
-          : "px-8 flex justify-between items-center"
+      className={`portfolio-nav fixed top-6 left-0 right-0 z-50 ${
+        isPhonePortrait ? "portfolio-nav--phone" : ""
       }`}
       style={{
         backgroundColor: navBackground,
@@ -132,17 +130,13 @@ function Navigation({ currentPath, onNavigate }) {
       }}
     >
       <motion.div
-        className={
-          isPhonePortrait
-            ? "flex w-full items-center justify-center"
-            : "flex min-w-0 flex-1 items-center justify-start pl-0 pr-6"
-        }
+        className="portfolio-nav__scene-cell"
         style={{
           alignSelf: "center",
         }}
       >
         <motion.div
-          className="drop-shadow-[0_8px_22px_rgba(0,0,0,0.4)]"
+          className="portfolio-nav__scene-frame drop-shadow-[0_8px_22px_rgba(0,0,0,0.4)]"
           // Keep the embedded scene interactive without bubbling into parent nav handlers.
           onClick={(event) => {
             event.preventDefault();
@@ -154,22 +148,16 @@ function Navigation({ currentPath, onNavigate }) {
           style={{
             height: logoHeight,
             width: logoWidth,
-            maxWidth: "100%",
             pointerEvents: "auto",
-            flex: "0 0 auto",
           }}
         >
-          <Scene />
+          <div className="portfolio-nav__canvas-box">
+            <Scene />
+          </div>
         </motion.div>
       </motion.div>
 
-      <div
-        className={
-          isPhonePortrait
-            ? "flex w-full max-w-[24rem] items-center justify-between px-5"
-            : "flex shrink-0 gap-8"
-        }
-      >
+      <div className="portfolio-nav__links">
         {NAV_ITEMS.map((item) => (
           <motion.a
             key={item.path}

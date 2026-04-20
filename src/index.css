@@ -1259,6 +1259,70 @@ h6 {
   background: var(--scene-base);
 }
 
+.portfolio-nav {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  align-content: center;
+  gap: 2rem;
+  padding-inline: 2rem;
+}
+
+.portfolio-nav--phone {
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  gap: 0.75rem;
+  padding-inline: 1rem;
+}
+
+.portfolio-nav__scene-cell {
+  display: flex;
+  min-width: 0;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.portfolio-nav--phone .portfolio-nav__scene-cell {
+  justify-content: center;
+}
+
+.portfolio-nav__scene-frame {
+  max-width: 100%;
+  aspect-ratio: 3 / 2;
+  flex: 0 1 auto;
+  overflow: hidden;
+}
+
+.portfolio-nav__canvas-box {
+  width: 100%;
+  height: 100%;
+}
+
+.nav-scene-canvas,
+.portfolio-nav__canvas-box,
+.portfolio-nav__canvas-box canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.portfolio-nav__links {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 2rem;
+}
+
+.portfolio-nav--phone .portfolio-nav__links {
+  width: min(24rem, 100%);
+  justify-content: space-between;
+  gap: 1rem;
+  padding-inline: 1.25rem;
+}
+
 .scene-gradient {
   position: absolute;
   inset: -25%;

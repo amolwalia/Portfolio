@@ -22,7 +22,12 @@ const CANVAS_STYLE = {
 
 export default function Scene() {
   return (
-    <Canvas camera={CAMERA_CONFIG} gl={CANVAS_GL_CONFIG} style={CANVAS_STYLE}>
+    <Canvas
+      className="nav-scene-canvas"
+      camera={CAMERA_CONFIG}
+      gl={CANVAS_GL_CONFIG}
+      style={CANVAS_STYLE}
+    >
       {/* Keep the lighting minimal so the glass material and environment reflections do the work. */}
       <ambientLight intensity={0.1} />
       <pointLight intensity={1.4} position={[2, 2, 2]} />
