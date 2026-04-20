@@ -1,4 +1,4 @@
-import { type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import type {
   CaseStudy,
   CaseStudySection,
@@ -35,7 +35,10 @@ function sectionTitle(section: CaseStudySection): string {
   return section.title || "Section";
 }
 
-function renderMedia(item: MediaItem): ReactNode {
+function renderMedia(
+  item: MediaItem,
+  onOpenImage?: (item: MediaItem) => void,
+): ReactNode {
   if (item.type === "video") {
     return (
       <video
@@ -46,6 +49,24 @@ function renderMedia(item: MediaItem): ReactNode {
       >
         <source src={item.src} />
       </video>
+    );
+  }
+
+  if (onOpenImage) {
+    return (
+      <button
+        type="button"
+        className="case-media-button"
+        onClick={() => onOpenImage(item)}
+        aria-label={`Open ${item.alt} enlarged`}
+      >
+        <img
+          src={item.src}
+          alt={item.alt}
+          loading="lazy"
+          className="case-media"
+        />
+      </button>
     );
   }
 
@@ -98,7 +119,13 @@ function ProcessBlock({ section }: { section: ProcessSection }) {
   );
 }
 
-function DesignsBlock({ section }: { section: DesignsSection }) {
+function DesignsBlock({
+  section,
+  onOpenImage,
+}: {
+  section: DesignsSection;
+  onOpenImage: (item: MediaItem) => void;
+}) {
   if (section.subsections.length === 0) return null;
 
   return (
@@ -118,19 +145,21 @@ function DesignsBlock({ section }: { section: DesignsSection }) {
                 <p>{subsection.after}</p>
               </div>
             </div>
-            <div className="case-media-grid">
-              {subsection.media.map((item, mediaIndex) => (
-                <figure
-                  key={`${section.id}-${index}-${mediaIndex}`}
-                  className="case-figure"
-                >
-                  {renderMedia(item)}
-                  {item.caption ? (
-                    <figcaption>{item.caption}</figcaption>
-                  ) : null}
-                </figure>
-              ))}
-            </div>
+            {subsection.media.length > 0 ? (
+              <div className="case-media-grid">
+                {subsection.media.map((item, mediaIndex) => (
+                  <figure
+                    key={`${section.id}-${index}-${mediaIndex}`}
+                    className="case-figure"
+                  >
+                    {renderMedia(item, onOpenImage)}
+                    {item.caption ? (
+                      <figcaption>{item.caption}</figcaption>
+                    ) : null}
+                  </figure>
+                ))}
+              </div>
+            ) : null}
           </article>
         ))}
       </div>
@@ -140,8 +169,10 @@ function DesignsBlock({ section }: { section: DesignsSection }) {
 
 function MediaBlock({
   section,
+  onOpenImage,
 }: {
   section: Extract<CaseStudySection, { type: "media" }>;
+  onOpenImage: (item: MediaItem) => void;
 }) {
   if (section.items.length === 0) return null;
 
@@ -151,7 +182,7 @@ function MediaBlock({
       <div className="case-media-grid case-media-grid-two">
         {section.items.map((item, index) => (
           <figure key={`${section.id}-${index}`} className="case-figure">
-            {renderMedia(item)}
+            {renderMedia(item, onOpenImage)}
             {item.caption ? <figcaption>{item.caption}</figcaption> : null}
           </figure>
         ))}
@@ -165,6 +196,7 @@ export function CaseStudyPage({
   allStudies,
   onNavigate,
 }: CaseStudyPageProps) {
+  const [activeImage, setActiveImage] = useState<MediaItem | null>(null);
   const currentIndex = allStudies.findIndex((item) => item.slug === study.slug);
   const prevStudy = currentIndex > 0 ? allStudies[currentIndex - 1] : null;
   const nextStudy =
@@ -195,6 +227,24 @@ export function CaseStudyPage({
     { label: "Team", value: study.meta.team },
     { label: "Tools", value: study.meta.tools },
   ].filter((item) => !isPlaceholder(item.value));
+
+  useEffect(() => {
+    if (!activeImage) return undefined;
+
+    const previousOverflow = document.body.style.overflow;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setActiveImage(null);
+      }
+    };
+
+    document.body.style.overflow = "hidden";
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [activeImage]);
 
   return (
     <section className="case-study-shell">
@@ -253,11 +303,23 @@ export function CaseStudyPage({
               }
 
               if (section.type === "designs") {
-                return <DesignsBlock key={section.id} section={section} />;
+                return (
+                  <DesignsBlock
+                    key={section.id}
+                    section={section}
+                    onOpenImage={setActiveImage}
+                  />
+                );
               }
 
               if (section.type === "media") {
-                return <MediaBlock key={section.id} section={section} />;
+                return (
+                  <MediaBlock
+                    key={section.id}
+                    section={section}
+                    onOpenImage={setActiveImage}
+                  />
+                );
               }
 
               return (
@@ -306,6 +368,34 @@ export function CaseStudyPage({
           </article>
         </div>
       </div>
+
+      {activeImage ? (
+        <div
+          className="case-lightbox"
+          role="dialog"
+          aria-modal="true"
+          aria-label={activeImage.alt}
+          onClick={() => setActiveImage(null)}
+        >
+          <button
+            type="button"
+            className="case-lightbox-close"
+            onClick={() => setActiveImage(null)}
+            aria-label="Close enlarged image"
+          >
+            X
+          </button>
+          <figure
+            className="case-lightbox-figure"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <img src={activeImage.src} alt={activeImage.alt} />
+            {activeImage.caption ? (
+              <figcaption>{activeImage.caption}</figcaption>
+            ) : null}
+          </figure>
+        </div>
+      ) : null}
     </section>
   );
 }

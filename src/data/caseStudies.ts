@@ -98,7 +98,7 @@ export const caseStudies: CaseStudy[] = [
       type: "image",
       src: "/SCAFF0.png",
       alt: "Scaffold hero",
-      caption: "Hero visual placeholder",
+      caption: "Scaffold hero visual",
     },
     sections: [
       {
@@ -171,14 +171,7 @@ export const caseStudies: CaseStudy[] = [
               "Users manually interpreted requirements across multiple websites and disconnected sources.",
             after:
               "A centralized flow generates a structured profile, evaluates grant eligibility, and explains match outcomes in one guided system.",
-            media: [
-              {
-                type: "image",
-                src: "/work/scaffold/screen-01.jpg",
-                alt: "Scaffold structure screen",
-                caption: "Structure placeholder",
-              },
-            ],
+            media: [],
           },
           {
             title: "Application assistance output",
@@ -186,14 +179,7 @@ export const caseStudies: CaseStudy[] = [
               "Even when users found relevant grants, drafting application responses added friction and inconsistency.",
             after:
               "Template generation produces editable copy paste responses so users can move from eligibility to application faster.",
-            media: [
-              {
-                type: "image",
-                src: "/work/scaffold/screen-02.jpg",
-                alt: "Scaffold flow screen",
-                caption: "Flow placeholder",
-              },
-            ],
+            media: [],
           },
         ],
       },
@@ -219,15 +205,15 @@ export const caseStudies: CaseStudy[] = [
         items: [
           {
             type: "image",
-            src: "/work/scaffold/screen-03.jpg",
+            src: "/SCAFF1.png",
             alt: "Scaffold screen",
-            caption: "Placeholder asset",
+            caption: "Scaffold product screen",
           },
           {
             type: "image",
-            src: "/work/scaffold/screen-04.jpg",
+            src: "/SCAFF2.png",
             alt: "Scaffold screen",
-            caption: "Placeholder asset",
+            caption: "Scaffold product screen",
           },
         ],
       },
@@ -250,7 +236,7 @@ export const caseStudies: CaseStudy[] = [
       type: "image",
       src: "/MM0.png",
       alt: "MoneyMonsters hero",
-      caption: "Hero visual placeholder",
+      caption: "MoneyMonsters hero visual",
     },
     sections: [
       {
@@ -323,14 +309,7 @@ export const caseStudies: CaseStudy[] = [
               "Financial tools often serve one audience at a time, creating mismatch between child engagement and parental oversight.",
             after:
               "A unified design language supported both child and parent workflows within one ecosystem.",
-            media: [
-              {
-                type: "image",
-                src: "/work/moneymonsters/screen-01.jpg",
-                alt: "MoneyMonsters dual audience screen",
-                caption: "Dual-audience placeholder",
-              },
-            ],
+            media: [],
           },
           {
             title: "Reward and progress loops",
@@ -338,14 +317,7 @@ export const caseStudies: CaseStudy[] = [
               "Abstract educational goals felt disconnected from daily behavior.",
             after:
               "Interactive tasks and visual progress indicators reinforced positive money habits.",
-            media: [
-              {
-                type: "image",
-                src: "/work/moneymonsters/screen-02.jpg",
-                alt: "MoneyMonsters reward screen",
-                caption: "Reward system placeholder",
-              },
-            ],
+            media: [],
           },
         ],
       },
@@ -371,15 +343,9 @@ export const caseStudies: CaseStudy[] = [
         items: [
           {
             type: "image",
-            src: "/work/moneymonsters/screen-03.jpg",
+            src: "/MM1.png",
             alt: "MoneyMonsters screen",
-            caption: "Placeholder asset",
-          },
-          {
-            type: "image",
-            src: "/work/moneymonsters/screen-04.jpg",
-            alt: "MoneyMonsters screen",
-            caption: "Placeholder asset",
+            caption: "MoneyMonsters product screen",
           },
         ],
       },
@@ -402,7 +368,7 @@ export const caseStudies: CaseStudy[] = [
       type: "image",
       src: "/DTR0.png",
       alt: "DTRMND hero",
-      caption: "Hero visual placeholder",
+      caption: "DTRMND hero visual",
     },
     sections: [
       {
@@ -477,14 +443,7 @@ export const caseStudies: CaseStudy[] = [
               "Traditional ecommerce journeys treat virtual try-on as a hidden secondary feature.",
             after:
               "DTRMND made try-on the central interaction, connected directly to browsing and purchase decisions.",
-            media: [
-              {
-                type: "image",
-                src: "/work/dtrmnd/screen-01.jpg",
-                alt: "DTRMND try-on entry point",
-                caption: "Try-on entry placeholder",
-              },
-            ],
+            media: [],
           },
           {
             title: "Feedback and preview states",
@@ -492,14 +451,7 @@ export const caseStudies: CaseStudy[] = [
               "AI interactions can feel opaque and disconnected from shopping flow.",
             after:
               "Consistent spacing, restrained palettes, loading indicators, and preview transitions made the process transparent and intuitive.",
-            media: [
-              {
-                type: "image",
-                src: "/work/dtrmnd/screen-02.jpg",
-                alt: "DTRMND preview states",
-                caption: "Preview state placeholder",
-              },
-            ],
+            media: [],
           },
         ],
       },
@@ -525,15 +477,15 @@ export const caseStudies: CaseStudy[] = [
         items: [
           {
             type: "image",
-            src: "/work/dtrmnd/screen-03.jpg",
+            src: "/DTR1.png",
             alt: "DTRMND screen",
-            caption: "Placeholder asset",
+            caption: "DTRMND product screen",
           },
           {
             type: "image",
-            src: "/work/dtrmnd/screen-04.jpg",
+            src: "/DTR2.png",
             alt: "DTRMND screen",
-            caption: "Placeholder asset",
+            caption: "DTRMND product screen",
           },
         ],
       },

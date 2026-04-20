@@ -1885,6 +1885,21 @@ h6 {
   object-fit: cover;
 }
 
+.case-media-button {
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 0.9rem;
+  background: transparent;
+  cursor: zoom-in;
+  text-align: inherit;
+}
+
+.case-media-button:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.9);
+  outline-offset: 4px;
+}
+
 .case-hero-media figcaption,
 .case-figure figcaption {
   margin-top: 0.5rem;
@@ -2044,6 +2059,60 @@ h6 {
   margin: 0;
 }
 
+.case-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: rgba(0, 0, 0, 0.82);
+  cursor: zoom-out;
+}
+
+.case-lightbox-figure {
+  width: min(92vw, 1200px);
+  max-height: 88vh;
+  margin: 0;
+  cursor: default;
+}
+
+.case-lightbox-figure img {
+  width: 100%;
+  max-height: 82vh;
+  object-fit: contain;
+  border-radius: 0.5rem;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.case-lightbox-figure figcaption {
+  margin-top: 0.75rem;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 1rem;
+  text-align: center;
+}
+
+.case-lightbox-close {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  border-radius: 0.5rem;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  font: inherit;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.case-lightbox-close:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.9);
+  outline-offset: 3px;
+}
+
 .case-study-footer-nav {
   border-top: 1px solid rgba(255, 255, 255, 0.16);
   margin-top: 1.2rem;
@@ -2130,6 +2199,15 @@ h6 {
   .case-nav-link {
     width: 100%;
     text-align: center;
+  }
+
+  .case-lightbox {
+    padding: 1rem;
+  }
+
+  .case-lightbox-close {
+    top: 0.75rem;
+    right: 0.75rem;
   }
 }
 
