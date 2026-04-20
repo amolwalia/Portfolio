@@ -1,18 +1,36 @@
 import { motion } from "motion/react";
 import { useViewportSize } from "../../hooks/useViewportSize.js";
 
+// The home headline needs a fixed phone size because the desktop utility
+// classes are too large for narrow portrait screens.
 const PHONE_PORTRAIT_HERO_FONT_SIZE = "3rem";
+const PHONE_BREAKPOINT = 768;
+
+function isPhonePortraitViewport({ width, height }) {
+  // This layout check is used by both spacing and typography decisions.
+  return width < PHONE_BREAKPOINT && height > width;
+}
+
+function getHeroSpacer(viewportSize, isPhonePortrait) {
+  // The navigation component acts like the home hero. This spacer pushes the
+  // text content below the expanded 3D logo so the first screen has breathing
+  // room before the user scrolls.
+  const phoneSpacer = Math.max(
+    viewportSize.height * 0.92,
+    viewportSize.height + 24,
+  );
+  const desktopSpacer = Math.max(
+    viewportSize.height * 1.15,
+    viewportSize.height + 160,
+  );
+
+  return Math.round(isPhonePortrait ? phoneSpacer : desktopSpacer);
+}
 
 function HomePage({ onNavigate }) {
   const viewportSize = useViewportSize();
-  const isPhonePortrait =
-    viewportSize.width < 768 && viewportSize.height > viewportSize.width;
-
-  const heroSpacer = Math.round(
-    isPhonePortrait
-      ? Math.max(viewportSize.height * 0.92, viewportSize.height + 24)
-      : Math.max(viewportSize.height * 1.15, viewportSize.height + 160),
-  );
+  const isPhonePortrait = isPhonePortraitViewport(viewportSize);
+  const heroSpacer = getHeroSpacer(viewportSize, isPhonePortrait);
 
   return (
     <section
@@ -20,12 +38,31 @@ function HomePage({ onNavigate }) {
       style={{ paddingTop: `${heroSpacer}px` }}
     >
       <div className="max-w-6xl w-full mx-auto">
+        {/* Main intro block. The delayed animations stagger the headline, copy, and buttons. */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
           className="space-y-6"
         >
+          {/* Quiet identity line. It introduces the person without competing with the main role statement. */}
+          <motion.p
+            className={`text-white/65 ${
+              isPhonePortrait ? "text-3xl" : "text-3xl md:text-5xl"
+            }`}
+            style={{
+              fontFamily: "Montserrat, sans-serif",
+              fontWeight: 300,
+              letterSpacing: "0.04em",
+            }}
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.25 }}
+          >
+            Hi, I'm Amol Walia
+          </motion.p>
+
+          {/* Primary positioning statement. Desktop uses Tailwind sizes, phone portrait uses the fixed size above. */}
           <motion.h1
             className={`tracking-[0.05em] leading-[0.96] uppercase ${
               isPhonePortrait
@@ -35,7 +72,9 @@ function HomePage({ onNavigate }) {
             style={{
               fontFamily: "Akira Expanded, sans-serif",
               fontWeight: 800,
-              fontSize: isPhonePortrait ? PHONE_PORTRAIT_HERO_FONT_SIZE : undefined,
+              fontSize: isPhonePortrait
+                ? PHONE_PORTRAIT_HERO_FONT_SIZE
+                : undefined,
             }}
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -46,6 +85,7 @@ function HomePage({ onNavigate }) {
             <span>&amp; Digital Marketer</span>
           </motion.h1>
 
+          {/* Short supporting copy under the headline. */}
           <motion.p
             className={`max-w-2xl ${
               isPhonePortrait
@@ -57,10 +97,11 @@ function HomePage({ onNavigate }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            I use marketing to bring people in, and design to help them
-            understand and take action.
+            I build visual systems, campaigns, and digital experiences that help
+            people understand, trust, and act.
           </motion.p>
 
+          {/* Primary actions. The resume is a normal file link; contact uses client-side navigation. */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
