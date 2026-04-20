@@ -1,207 +1,196 @@
-# ✨ Interactive Prism-Glass 3D Logo Hero (Three.js)
+# Interactive Prism-Glass 3D Logo Hero
 
----
+## Concept
 
-## Description
+Build a real-time interactive hero experience where the AW logo behaves like a physical glass object inside the page.
 
-I will create a real-time interactive 3D hero section where my “AW” logo exists as a solid prism-glass object instead of a flat image.
+Instead of treating the logo as a flat image or decorative mark, the hero should make the identity feel dimensional, responsive, and material. The logo should catch light, show depth, and subtly react to the user without overwhelming the portfolio content.
 
-The logo behaves like physical glass: it bends light, distorts text behind it, and catches sharp highlights along its edges.  
-The goal is to make the identity itself feel like a physical object living inside the page rather than decoration on it.
+The goal is simple: the first impression should communicate both visual design taste and technical implementation ability.
 
-This will be rendered live using Three.js — not a video, not a GIF, not a fake shader trick.
+## Core Idea
 
-🧊 The page doesn’t show a logo.  
-It _hosts_ it.
+The portfolio does not just display a logo. It hosts the logo as an object.
 
----
+The AW mark should feel like it exists between the viewer and the interface:
 
-## What is the work you’re taking on?
+- In front of the page, not pasted onto it
+- Physical enough to feel crafted
+- Calm enough to keep the portfolio usable
+- Interactive enough to show technical skill
 
-### Build a reusable portfolio hero component
+## Scope
 
-A full-width landing section containing:
+Create a reusable hero/navigation scene component that includes:
 
-- A prism-glass 3D logo
-- Large typography positioned behind the object
-- Cursor-driven motion
-- Subtle idle animation
-- Responsive performance controls
+- A live 3D AW logo
+- Transparent prism-glass material
+- Responsive sizing for desktop and mobile
+- Scroll-aware scaling
+- Cursor or pointer-based interaction
+- Subtle idle motion
+- Performance-conscious rendering settings
+- Accessible fallbacks for reduced-motion users
 
----
+## Visual Direction
 
-### Core visual features
+The scene should feel like a dark studio product shot translated into an interface.
 
-#### Glass material
+### Material
 
-- Physically-based transmission
-- Strong rim highlights ✨
-- Slight tint and depth
-- Subtle chromatic edge splitting 🌈
-- Internal reflections
+The logo should use a glass-like material with:
 
-#### Refraction interaction
+- Physical transmission
+- Subtle tint
+- Sharp rim highlights
+- Realistic reflections
+- Controlled roughness
+- Enough thickness to feel solid
 
-- Background title text sits behind the logo
-- Text warps and bends through the object
-- Different distortion depending on camera angle
+The material should avoid looking like chrome, plastic, or a simple transparent PNG.
 
-#### Lighting setup
+### Lighting
 
-- Dark studio environment 🌑
-- Soft key light
-- Edge/rim light accents
-- HDR reflections for realism
+Use restrained lighting so the logo has definition without becoming noisy:
 
----
+- Soft ambient light for base visibility
+- Directional or point lights for edge highlights
+- HDR environment reflections for depth
+- Dark background contrast to emphasize the glass
 
-### Motion behavior
+### Composition
 
-- Cursor move → gentle tilt
-- Idle → slow floating rotation 🫧
-- Hover → highlight intensity increases slightly
-- Reduced-motion preference → motion disabled
-- Low-power device → simplified rendering ⚙️
+The 3D logo should remain the visual anchor of the hero, but it should not block the user's path through the page.
 
----
+On the home page, it can feel large and immersive. As the user scrolls, it should collapse into the navigation area and continue functioning as a compact brand mark.
 
-## How does this enhance my body of work?
+## Interaction Behavior
 
-Instead of showing a project, the landing section becomes the project.
+Interaction should feel intentional and restrained.
 
-It demonstrates:
+### Desktop
 
-- Real-time rendering
-- Material realism
-- Interaction restraint
-- Integration of design + development
-
-The logo becomes proof of capability rather than branding decoration.
-
-🧠 Viewer takeaway within 2 seconds:
-
-> This person understands both visuals and implementation.
-
-This will be an interaction embedded into my portfolio, not a standalone page.
-
----
-
-## Lo-fi Mockups
-
-### Layout
-
-![Lo-fi layout prototype](./public/AW1.gif)
-
----
-
-### Interaction
-
-Move mouse → tilt
-Stop moving → slow float
-Hover → light intensifies
-Scroll → depth shift (optional)
-
----
+- Pointer movement creates a gentle tilt or parallax response
+- Idle state uses slow, subtle motion
+- Hover can slightly increase highlight intensity or rotation response
+- Scroll controls the transition from hero-scale logo to nav-scale logo
 
 ### Mobile
 
-Touch drag → rotate
-Low performance → simplified material
+- Touch movement can create a small rotation response
+- The logo should remain stable and readable
+- Effects should be simplified if performance drops
 
----
+### Reduced Motion
 
-## Examples to help explain the concept
+If the user prefers reduced motion:
 
-Concept inspiration:
+- Disable idle animation
+- Disable pointer-driven movement
+- Keep the logo visible as a static 3D object or fallback image
 
-- Product-style hero sections
-- Real-time WebGL landing pages
-- Typography interacting with objects
+## Technical Approach
 
-Creative intention:
-The object should feel like it exists _between the viewer and the page_.  
-Not on the page. Not behind it.  
-Floating in UI space.
-
-🪟 A window, not an image.
-
----
-
-## Resources I plan on using
-
-### Libraries
+Recommended stack:
 
 - Three.js
-- GLTFLoader
-- RGBELoader
-- OrbitControls (restricted movement)
+- React Three Fiber
+- Drei helpers for environment lighting and asset loading
+- GLB or GLTF logo exported from Blender
 
-### Assets
+Useful techniques:
 
-- Logo modeled in Blender → exported as glTF
-- HDR environment maps
-- Tone mapping & exposure control
+- `MeshPhysicalMaterial` for glass-like behavior
+- HDR environment maps for reflections
+- Pixel ratio clamping for performance
+- Responsive canvas wrapper sizing
+- Conditional animation based on device capability and motion preferences
 
-### Techniques
+## Implementation Notes
 
-- MeshPhysicalMaterial transmission
-- Environment reflections
-- Refraction distortion
-- Responsive renderer scaling
-- requestAnimationFrame loop
+The canvas should not own the responsive layout. A parent container should define the size, and the canvas should fill that box with `width: 100%` and `height: 100%`.
 
----
+This keeps the rendering stable while the layout changes. It also makes scroll-based resizing easier to reason about:
 
-## Fears, uncertainties, doubts
+- Wrapper changes dimensions
+- Canvas fills wrapper
+- 3D scene remains contained
+
+The navigation should use grid or flexbox for layout instead of relying on absolute positioning. This keeps the logo and links responsive as the nav collapses.
+
+## Why This Strengthens The Portfolio
+
+This hero becomes more than a visual intro. It demonstrates:
+
+- Visual taste
+- Brand system thinking
+- Real-time rendering
+- Responsive interaction design
+- Frontend implementation skill
+- Ability to balance polish with usability
+
+The interaction should help a viewer understand the portfolio's positioning within the first few seconds:
+
+> Amol can design strong visuals and build them into functioning digital experiences.
+
+## Risks
 
 ### Performance
 
-Glass rendering is resource expensive 🐢  
-Mobile devices may struggle
+Glass rendering can be expensive, especially on mobile.
 
-Possible solutions:
+Mitigation:
 
-- Pixel ratio clamp
-- Conditional effects
-- Fallback material
+- Clamp device pixel ratio
+- Reduce effects on small screens
+- Use simpler materials when needed
+- Avoid unnecessary post-processing
 
----
+### Visual Tuning
 
-### Realism tuning
+Small material changes can drastically affect the final look.
 
-Small parameter changes dramatically affect appearance:
+Parameters that will require iteration:
 
 - IOR
-- thickness
-- roughness
-- environment intensity
+- Transmission
+- Thickness
+- Roughness
+- Environment intensity
+- Light placement
 
-Expect iteration cycles 🔁
+### Interaction Balance
 
----
+The logo should not feel like a toy or distract from the portfolio content.
 
-### Interaction balance
+The goal is calm responsiveness, not constant motion.
 
-Too much motion = distracting  
-Too little motion = lifeless
+### Model Quality
 
-Goal: noticeable but calm
+Glass materials expose geometry problems quickly.
 
----
+The model may need cleanup for:
 
-### Geometry preparation
+- Normals
+- Beveled edges
+- Topology
+- Scale
+- Origin placement
 
-Incorrect normals or topology will break highlights  
-Model cleanup may be required
+## Success Criteria
 
----
+The final experience is successful if:
 
-## Success criteria
+- The logo feels like a physical glass object
+- The scene remains smooth on desktop and usable on mobile
+- The animation is noticeable but restrained
+- The nav collapse feels intentional and responsive
+- The canvas fills its wrapper correctly at every size
+- The experience supports the portfolio instead of distracting from it
+- The component can be reused or adjusted without rewriting the whole scene
 
-✔ Glass feels physical  
-✔ Text visibly refracts through object  
-✔ Motion is subtle and smooth  
-✔ Runs across devices  
-✔ Works as reusable component
+## Reference Asset
 
----
+layout and interaction reference:
+
+![layout prototype](./public/AW1.gif)
