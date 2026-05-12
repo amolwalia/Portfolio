@@ -9,6 +9,7 @@ import { Work } from "./components/pages/Work.tsx";
 import { CaseStudy } from "./components/pages/CaseStudy.tsx";
 import { caseStudiesBySlug, caseStudies } from "./data/caseStudies.ts";
 import { useViewportSize } from "./hooks/useViewportSize.js";
+import { Analytics } from "@vercel/analytics/next"
 
 const BASE_ROUTES = {
   home: "/",

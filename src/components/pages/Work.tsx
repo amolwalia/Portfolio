@@ -104,10 +104,6 @@ const photographyImages = [
     src: "/photography/d574e5_c16d5e0ce7fe42ecae404c57a82f2ff5~mv2.jpg.jpg",
     alt: "Photography styled image",
   },
-  {
-    src: "/photography/web - section-Edit.jpg",
-    alt: "Photography website feature image",
-  },
 ];
 
 export function Work({ studies, onNavigate }: WorkPageProps) {
