@@ -9,7 +9,7 @@ import { Work } from "./components/pages/Work.tsx";
 import { CaseStudy } from "./components/pages/CaseStudy.tsx";
 import { caseStudiesBySlug, caseStudies } from "./data/caseStudies.ts";
 import { useViewportSize } from "./hooks/useViewportSize.js";
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/react";
 
 const BASE_ROUTES = {
   home: "/",
@@ -113,6 +113,7 @@ function App() {
     >
       <Scene3D />
       <Navigation currentPath={currentPath} onNavigate={handleNavigate} />
+      <Analytics />
 
       <AnimatePresence mode="wait">
         <motion.div
