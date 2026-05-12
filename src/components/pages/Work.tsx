@@ -20,7 +20,10 @@ const printDesignImages = [
   { src: "/mockup-designs/book.png", alt: "Print design book mockup" },
   { src: "/mockup-designs/can.png", alt: "Print design can label mockup" },
   { src: "/mockup-designs/invite.png", alt: "Print design invitation mockup" },
-  { src: "/mockup-designs/menu-flyer.png", alt: "Print design menu flyer mockup" },
+  {
+    src: "/mockup-designs/menu-flyer.png",
+    alt: "Print design menu flyer mockup",
+  },
 ];
 
 const photographyImages = [
@@ -211,13 +214,14 @@ export function Work({ studies, onNavigate }: WorkPageProps) {
           ))}
         </div>
 
-        <section className="work-media-section" aria-labelledby="print-design-heading">
+        <section
+          className="work-media-section"
+          aria-labelledby="print-design-heading"
+        >
           <div className="work-section-header">
             <p className="work-section-kicker">Selected Visual Work</p>
             <h2 id="print-design-heading">Print Design</h2>
-            <p>
-              A compact selection of print and packaging mockups.
-            </p>
+            <p>A compact selection of print and packaging mockups.</p>
           </div>
 
           <div className="work-media-grid work-media-grid-print">
@@ -236,13 +240,13 @@ export function Work({ studies, onNavigate }: WorkPageProps) {
           </div>
         </section>
 
-        <section className="work-media-section" aria-labelledby="photography-heading">
+        <section
+          className="work-media-section"
+          aria-labelledby="photography-heading"
+        >
           <div className="work-section-header">
             <p className="work-section-kicker">Selected Visual Work</p>
             <h2 id="photography-heading">Photography</h2>
-            <p>
-              A broader image-led gallery without detailed case study copy.
-            </p>
           </div>
 
           <div className="work-media-grid work-media-grid-photo">
